@@ -1,703 +1,1229 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean Cain: Playing Superman | Good Life Media</title>
-
-```
-<!-- Social sharing meta tags -->
-<meta property="og:title" content="Dean Cain: Playing Superman">
-<meta property="og:description" content="Beyond the cape — Dean Cain opens up about adoption, losing his NFL dream, and raising his son alone.">
-<meta property="og:image" content="https://img.youtube.com/vi/RaTwRLrPqSU/maxresdefault.jpg">
-<meta property="og:type" content="video.other">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img.youtube.com/vi/RaTwRLrPqSU/maxresdefault.jpg">
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-    :root {
-        --gold: #C9A227;
-        --gold-light: #E8D48A;
-        --cream: #FAF7F0;
-        --charcoal: #1C1C1C;
-        --warm-black: #252525;
-        --text-secondary: rgba(255, 255, 255, 0.7);
-        --itabs-blue: #0066cc;
-        --gofundme-green: #00b964;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Source Sans Pro', sans-serif;
-        background: linear-gradient(165deg, #1a1a1a 0%, #0d0d0d 100%);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .guest-card {
-        width: 100%;
-        max-width: 420px;
-        background: linear-gradient(180deg, var(--charcoal) 0%, var(--warm-black) 100%);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 
-            0 25px 80px rgba(0, 0, 0, 0.5),
-            0 0 0 1px rgba(201, 162, 39, 0.2);
-        position: relative;
-    }
-
-    .guest-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-
-    .card-header {
-        padding: 28px 28px 20px;
-        text-align: center;
-    }
-
-    .guest-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        color: var(--gold);
-        margin-bottom: 12px;
-        font-weight: 600;
-    }
-
-    .guest-name {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.2rem;
-        font-weight: 600;
-        color: var(--cream);
-        margin-bottom: 8px;
-        line-height: 1.2;
-    }
-
-    .episode-title {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        font-weight: 300;
-        font-style: italic;
-    }
-
-    .video-section {
-        padding: 0 20px;
-        position: relative;
-    }
-
-    .video-wrapper {
-        position: relative;
-        width: 100%;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    /* 16:9 aspect ratio for full interview */
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%;
-        background: #000;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
-    /* iTabs button next to video */
-    .itabs-video-btn {
-        position: absolute;
-        top: 10px;
-        right: 30px;
-        width: 32px;
-        height: 32px;
-        background: var(--itabs-blue);
-        border-radius: 50%;
-        border: 2px solid white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(0, 102, 204, 0.4);
-        z-index: 10;
-    }
-
-    .itabs-video-btn:hover {
-        transform: scale(1.15);
-        box-shadow: 0 4px 15px rgba(0, 102, 204, 0.6);
-    }
-
-    .itabs-video-btn .itabs-i {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-        font-size: 16px;
-        font-weight: 600;
-        color: white;
-        line-height: 1;
-    }
-
-    .context-section {
-        padding: 20px 28px;
-    }
-
-    .context-tagline {
-        font-family: 'Playfair Display', serif;
-        font-size: 1rem;
-        font-style: italic;
-        line-height: 1.6;
-        color: var(--text-secondary);
-        text-align: center;
-    }
-
-    .cta-section {
-        padding: 8px 28px 28px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .cta-primary {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 16px 24px;
-        background: linear-gradient(135deg, var(--gold) 0%, #B8922A 100%);
-        color: var(--charcoal);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(201, 162, 39, 0.3);
-    }
-
-    .cta-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(201, 162, 39, 0.4);
-    }
-
-    .cta-primary svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .cta-donate {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 14px 24px;
-        background: linear-gradient(135deg, var(--gofundme-green) 0%, #00a85a 100%);
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.95rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 185, 100, 0.3);
-    }
-
-    .cta-donate:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(0, 185, 100, 0.4);
-    }
-
-    .cta-donate svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .card-footer {
-        padding: 20px 28px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-    }
-
-    .footer-logo {
-        font-family: 'Playfair Display', serif;
-        font-size: 0.95rem;
-        color: var(--text-secondary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .footer-logo .brand {
-        color: var(--gold);
-        font-weight: 600;
-    }
-
-    /* Floating iTabs button - bottom corner */
-    .itabs-floating-btn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 56px;
-        height: 56px;
-        background: var(--itabs-blue);
-        border-radius: 50%;
-        border: 3px solid white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 102, 204, 0.5);
-        z-index: 100;
-    }
-
-    .itabs-floating-btn:hover {
-        transform: scale(1.15);
-        box-shadow: 0 6px 30px rgba(0, 102, 204, 0.7);
-    }
-
-    .itabs-floating-btn .itabs-i {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-        font-size: 22px;
-        font-weight: 600;
-        color: white;
-        line-height: 1;
-    }
-
-    .itabs-floating-btn .itabs-text {
-        font-family: 'Source Sans Pro', sans-serif;
-        font-size: 8px;
-        font-weight: 600;
-        color: white;
-        letter-spacing: 0.5px;
-        margin-top: 1px;
-    }
-
-    /* Popup overlay */
-    .itabs-popup-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        overflow-y: auto;
-    }
-
-    .itabs-popup-overlay.active {
-        display: flex;
-    }
-
-    .itabs-popup {
-        background: linear-gradient(180deg, var(--charcoal) 0%, var(--warm-black) 100%);
-        border-radius: 16px;
-        max-width: 400px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-        padding: 32px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(201, 162, 39, 0.3);
-        position: relative;
-    }
-
-    .popup-close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: var(--cream);
-        font-size: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-    }
-
-    .popup-close:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    .popup-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .popup-itabs-icon {
-        width: 40px;
-        height: 40px;
-        background: var(--itabs-blue);
-        border-radius: 50%;
-        border: 2px solid white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .popup-itabs-icon .itabs-i {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-        font-size: 20px;
-        font-weight: 600;
-        color: white;
-    }
-
-    .popup-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.3rem;
-        color: var(--cream);
-    }
-
-    .popup-content p {
-        color: var(--text-secondary);
-        line-height: 1.7;
-        margin-bottom: 16px;
-        font-size: 0.95rem;
-    }
-
-    .popup-section {
-        margin-bottom: 20px;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .popup-section-title {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--gold);
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .popup-section p {
-        margin-bottom: 0;
-    }
-
-    .popup-cta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 14px 24px;
-        background: linear-gradient(135deg, var(--gofundme-green) 0%, #00a85a 100%);
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        width: 100%;
-        margin-top: 8px;
-    }
-
-    .popup-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 185, 100, 0.4);
-    }
-
-    .popup-highlights {
-        margin-top: 16px;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .popup-highlights-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--gold);
-        margin-bottom: 12px;
-    }
-
-    .popup-highlights-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .popup-highlights-list li {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .popup-highlights-list li::before {
-        content: '→';
-        position: absolute;
-        left: 0;
-        color: var(--gold);
-    }
-
-    @media (max-width: 480px) {
+    <title>YouTube iTabs Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            padding: 8px;
-            padding-bottom: 80px;
-            align-items: flex-start;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, #0a0a1a 0%, #1a1a3a 50%, #0f0f2a 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            padding: 20px;
         }
         
-        .guest-card {
-            border-radius: 16px;
-            max-width: 100%;
-            min-height: calc(100vh - 96px);
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(5, 206, 120, 0.15) 0%, transparent 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(5, 206, 120, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(5, 206, 120, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(5, 206, 120, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(5, 206, 120, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .logo-wrap {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #05CE78, #00a862);
+            border-radius: 50%;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: white;
+            box-shadow: 
+                0 0 30px rgba(5, 206, 120, 0.5),
+                0 0 60px rgba(5, 206, 120, 0.3),
+                inset 0 -2px 10px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,255,255,0.2);
         }
         
-        .guest-name {
-            font-size: 2.1rem;
+        .logo .logo-i {
+            font-size: 2em;
+            font-weight: 800;
+            font-style: italic;
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        .card-header {
-            padding: 28px 24px 20px;
-        }
-
-        .guest-label {
-            font-size: 0.8rem;
-            letter-spacing: 3.5px;
-        }
-
-        .episode-title {
-            font-size: 1.15rem;
-        }
-
-        .video-section {
-            padding: 0 16px;
+        .logo .logo-text {
+            font-size: 0.55em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
         
-        .context-section {
-            padding: 24px;
-            flex-grow: 1;
-        }
-
-        .context-tagline {
-            font-size: 1.05rem;
+        .header h1 {
+            font-size: 1.6em;
+            color: white;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 20px rgba(5, 206, 120, 0.3);
         }
         
-        .cta-section {
-            padding: 8px 24px 28px;
-            gap: 14px;
+        .header p { 
+            color: #94a3b8; 
+            font-size: 0.9em;
+            position: relative;
+            z-index: 1;
         }
-
-        .cta-primary, .cta-donate {
-            padding: 18px 24px;
-            font-size: 1.05rem;
+        
+        .header .tagline {
+            display: inline-block;
+            background: rgba(5, 206, 120, 0.2);
+            border: 1px solid rgba(5, 206, 120, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            color: #05CE78;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
         }
-
-        .card-footer {
-            padding: 20px 24px;
+        
+        .panel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
         }
-
-        .itabs-floating-btn {
-            bottom: 20px;
-            right: 20px;
+        
+        label {
+            display: block;
+            font-size: 0.9em;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #05CE78;
+        }
+        
+        textarea { 
+            min-height: 150px; 
+            resize: vertical; 
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #05CE78, #00a862);
+            color: white;
+        }
+        
+        .btn-copy {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            margin-top: 10px;
+        }
+        
+        .btn-clear {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+        
+        .btn-clear:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+        
+        .btn-save-key {
+            background: rgba(5, 206, 120, 0.2);
+            color: #05CE78;
+            border: 1px solid rgba(5, 206, 120, 0.5);
+            padding: 10px 20px;
+            font-size: 0.85em;
+        }
+        
+        .btn-save-key:hover {
+            background: rgba(5, 206, 120, 0.4);
+        }
+        
+        .btn-save-key.saved {
+            background: #05CE78;
+            color: white;
+        }
+        
+        .btn.copied { background: #05CE78; }
+        
+        .api-section {
+            background: rgba(5, 206, 120, 0.1);
+            border: 1px solid rgba(5, 206, 120, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .api-section label {
+            color: #05CE78;
+            font-weight: 600;
+        }
+        
+        .api-section select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: #e2e8f0;
+            font-family: inherit;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        
+        .api-section select option {
+            background: #1a1a3a;
+            color: #e2e8f0;
+        }
+        
+        .helper-text {
+            font-size: 0.8em;
+            color: #64748b;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        
+        .helper-text a { color: #05CE78; }
+        
+        .status {
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            display: none;
+        }
+        
+        .status.loading {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+            display: block;
+        }
+        
+        .status.success {
+            background: rgba(5, 206, 120, 0.2);
+            border: 1px solid #05CE78;
+            color: #6ee7b7;
+            display: block;
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            display: block;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .sponsor-section, .support-section {
+            background: rgba(5, 206, 120, 0.1);
+            border: 1px solid rgba(5, 206, 120, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .sponsor-section label, .support-section label {
+            color: #05CE78;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        #outputSection {
+            display: none;
+        }
+        
+        .code-box {
+            background: #0d1117;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.75em;
+            color: #7ee787;
+            max-height: 200px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .preview-frame {
+            background: #f7f8fa;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        /* Preview card styles */
+        .preview-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .preview-header {
+            background: linear-gradient(135deg, #05CE78, #00a862);
+            padding: 20px 15px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .preview-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+        
+        .preview-header h2 { 
+            font-size: 1em; 
+            margin-bottom: 5px; 
+            position: relative; 
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .preview-hint { 
+            font-size: 0.7em; 
+            opacity: 0.9; 
+            position: relative; 
+            z-index: 1;
+        }
+        
+        .preview-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65em;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .preview-video {
+            background: #000;
+        }
+        
+        .preview-video iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            display: block;
+        }
+        
+        .preview-slides-wrapper {
+            position: relative;
+        }
+        
+        .preview-slides {
+            overflow: hidden;
+        }
+        
+        .preview-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-slide {
+            min-width: 100%;
+            padding: 15px 55px;
+        }
+        
+        .slide-icon { font-size: 1.8em; margin-bottom: 8px; }
+        .slide-title { font-weight: 700; color: #1a365d; margin-bottom: 10px; font-size: 0.95em; }
+        
+        .do-item, .dont-item {
+            display: flex;
+            gap: 8px;
+            font-size: 0.8em;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+        
+        .do-item::before { content: '✓'; color: #05CE78; font-weight: bold; }
+        .dont-item::before { content: '✗'; color: #ef4444; font-weight: bold; }
+        
+        /* Arrows overlaid on sides */
+        .nav-arrow-left, .nav-arrow-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #64748b;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        
+        .nav-arrow-left { left: 5px; }
+        .nav-arrow-right { right: 5px; }
+        .nav-arrow-left:hover, .nav-arrow-right:hover { 
+            background: #05CE78; 
+            color: white; 
+        }
+        
+        .preview-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 8px;
+            background: #f8f9fa;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e0;
+            cursor: pointer;
+        }
+        
+        .dot.active { background: #05CE78; transform: scale(1.3); }
+        
+        .i-btn-area {
+            display: flex;
+            justify-content: center;
+            padding: 10px 15px 12px;
+            background: #f8f9fa;
+        }
+        
+        .i-btn {
             width: 50px;
             height: 50px;
+            background: #05CE78;
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(5,206,120,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
-
-        .itabs-popup {
-            padding: 24px;
-            max-height: 85vh;
+        
+        .i-btn .i-letter {
+            font-size: 1.3em;
+            font-weight: 700;
+            font-style: italic;
         }
-    }
-</style>
-```
-
+        
+        .i-btn .i-text {
+            font-size: 0.45em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1px;
+        }
+        
+        /* Sponsor slide */
+        .sponsor-slide {
+            text-align: center;
+        }
+        
+        .sponsor-slide img {
+            max-height: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .sponsor-slide .sp-msg {
+            font-size: 0.85em;
+            color: #4a5568;
+            margin-bottom: 12px;
+        }
+        
+        .sponsor-slide a {
+            display: inline-block;
+            background: linear-gradient(135deg, #05CE78, #00a862);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8em;
+        }
+        
+        .support-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .support-link {
+            font-size: 0.75em;
+            color: #05CE78;
+            text-decoration: none;
+        }
+        
+        .support-link:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <div class="guest-card">
-        <div class="card-header">
-            <div class="guest-label">Featured Conversation</div>
-            <h1 class="guest-name">Dean Cain</h1>
-            <p class="episode-title">Playing Superman</p>
-        </div>
-
-```
-    <div class="video-section">
-        <!-- iTabs button next to video -->
-        <div class="itabs-video-btn" onclick="openPopup('video')">
-            <span class="itabs-i">i</span>
-        </div>
-        <div class="video-wrapper">
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/RaTwRLrPqSU" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+    <div class="container">
+        <div class="header">
+            <div class="logo-wrap">
+                <div class="logo">
+                    <span class="logo-i">i</span>
+                    <span class="logo-text">iTabs</span>
+                </div>
             </div>
+            <h1>YouTube iTabs Generator</h1>
+            <p>Paste URL + transcript → Get shareable iTabs</p>
+            <div class="tagline">⚡ AI-Powered • Instant Results</div>
         </div>
-    </div>
-
-    <div class="context-section">
-        <p class="context-tagline">Beyond the cape — a conversation about identity, resilience, and what really matters.</p>
-    </div>
-
-    <div class="cta-section">
-        <a href="https://youtu.be/RaTwRLrPqSU" target="_blank" class="cta-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
-            Watch Full Interview
-        </a>
-        <a href="https://www.gofundme.com/f/help-launch-the-good-life-podcast/donate" target="_blank" class="cta-donate">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-            Support Good Life
-        </a>
-    </div>
-
-    <div class="card-footer">
-        <span class="footer-logo">
-            A <span class="brand">Good Life Media</span> conversation
-        </span>
-    </div>
-</div>
-
-<!-- Floating iTabs button -->
-<div class="itabs-floating-btn" onclick="openPopup('support')">
-    <span class="itabs-i">i</span>
-    <span class="itabs-text">iTabs</span>
-</div>
-
-<!-- Video Info Popup -->
-<div class="itabs-popup-overlay" id="popup-video">
-    <div class="itabs-popup">
-        <button class="popup-close" onclick="closePopup('video')">×</button>
-        <div class="popup-header">
-            <div class="popup-itabs-icon">
-                <span class="itabs-i">i</span>
+        
+        <div class="panel">
+            <div class="api-section">
+                <label>🔑 AI API Key (required)</label>
+                <select id="aiProvider" onchange="updateApiPlaceholder()">
+                    <option value="claude">Claude (Anthropic)</option>
+                    <option value="gemini">Gemini (Google)</option>
+                </select>
+                <input type="password" id="apiKey" placeholder="Paste your API key here">
+                <p class="helper-text">
+                    Get your key: 
+                    <a href="https://console.anthropic.com/settings/keys" target="_blank">Claude</a> | 
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank">Gemini (free)</a>
+                </p>
+                <button class="btn btn-save-key" onclick="saveApiKey()">💾 Save Key</button>
             </div>
-            <h3 class="popup-title">About This Interview</h3>
-        </div>
-        <div class="popup-content">
-            <p>Dean Cain sits down with Good Life Media for an unfiltered conversation that goes far beyond Superman.</p>
             
-            <div class="popup-highlights">
-                <div class="popup-highlights-title">In This Conversation</div>
-                <ul class="popup-highlights-list">
-                    <li>Being adopted at age 4 and the father who changed everything</li>
-                    <li>Growing up in Malibu with Charlie Sheen and Rob Lowe</li>
-                    <li>NFL dreams ending with a knee injury</li>
-                    <li>Raising his son as a single father</li>
-                    <li>Why he became a reserve police officer</li>
-                </ul>
-            </div>
-        </div>
-        <a href="https://youtu.be/RaTwRLrPqSU" target="_blank" class="popup-cta" style="background: linear-gradient(135deg, var(--gold) 0%, #B8922A 100%); color: var(--charcoal);">Watch Now</a>
-    </div>
-</div>
-
-<!-- Support Popup - Full Story -->
-<div class="itabs-popup-overlay" id="popup-support">
-    <div class="itabs-popup">
-        <button class="popup-close" onclick="closePopup('support')">×</button>
-        <div class="popup-header">
-            <div class="popup-itabs-icon">
-                <span class="itabs-i">i</span>
-            </div>
-            <h3 class="popup-title">Help Keep Good Life Alive</h3>
-        </div>
-        <div class="popup-content">
-            <p>Good Life Podcast creates thoughtful, long-form conversations about faith, truth, recovery, and the realities of life — without filters or spin.</p>
+            <label>1. YouTube URL</label>
+            <input type="url" id="youtubeUrl" placeholder="https://youtube.com/watch?v=..." oninput="updateThumbnail()">
+            <img id="thumbnail" class="thumbnail" src="">
             
-            <div class="popup-section">
-                <div class="popup-section-title">🚨 The Crisis</div>
-                <p>Good Life Podcast is at a critical point. Dean and Todd are producing the show independently, without investors, sponsors, or outside financial backing. Without an increase in near-term support, they may not be able to keep the podcast alive in its current form.</p>
+            <label>2. Paste Transcript</label>
+            <textarea id="transcript" placeholder="Go to YouTube → Click '...' under video → Show transcript → Copy all text and paste here"></textarea>
+            <p class="helper-text">Tip: Click "Show transcript" under any YouTube video, then select all and copy</p>
+            
+            <div class="sponsor-section">
+                <label>🎁 Sponsor (AI will auto-detect from transcript)</label>
+                <input type="text" id="sponsorName" placeholder="Sponsor name (e.g. NordVPN)">
+                <textarea id="sponsorMessage" placeholder="Sponsor message with promo code" style="min-height: 60px;"></textarea>
+                <input type="url" id="sponsorLink" placeholder="Sponsor link">
+                <p class="helper-text">Leave blank for no sponsor card</p>
             </div>
-
-            <div class="popup-section">
-                <div class="popup-section-title">💰 Where the Money Goes</div>
-                <p>Funds cover core domestic and operational costs at risk of being shut down — basic needs, equipment, hosting, and essentials required to keep episodes being produced.</p>
+            
+            <div class="support-section">
+                <label>❤️ Creator Links (optional)</label>
+                <input type="text" id="xHandle" placeholder="X/Twitter handle (e.g. @yourhandle)">
+                <input type="url" id="linktreeLink" placeholder="Linktree URL">
+                <input type="url" id="patreonLink" placeholder="Patreon URL">
+                <input type="url" id="merchLink" placeholder="Merch store URL">
+                <input type="url" id="instagramLink" placeholder="Instagram URL">
             </div>
-
-            <div class="popup-section">
-                <div class="popup-section-title">✅ Why Trust This</div>
-                <p>Dean brings 30+ years of broadcast media experience. Todd adds extensive digital media and production expertise. Together they've built something real that deserves to continue.</p>
+            
+            <div id="status" class="status"></div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" id="generateBtn" onclick="generate()" style="flex: 1;">
+                    🚀 Generate iTabs
+                </button>
+                <button class="btn btn-clear" onclick="clearForm()" style="flex: 1;">
+                    🗑️ Clear
+                </button>
             </div>
         </div>
-        <a href="https://www.gofundme.com/f/help-launch-the-good-life-podcast/donate" target="_blank" class="popup-cta">Donate Now</a>
+        
+        <div id="outputSection">
+            <div class="panel">
+                <label>Preview</label>
+                <div class="preview-frame">
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <h2 id="previewTitle">Video Title</h2>
+                            <div class="preview-hint">Watch & swipe through key points ↓</div>
+                            <div class="preview-badge">⚡ Powered by iTabs</div>
+                        </div>
+                        <div class="preview-video" id="previewVideo"></div>
+                        <div class="preview-slides-wrapper">
+                            <button class="nav-arrow-left" onclick="prevSlide()">‹</button>
+                            <div class="preview-slides">
+                                <div class="preview-track" id="previewTrack"></div>
+                            </div>
+                            <button class="nav-arrow-right" onclick="nextSlide()">›</button>
+                        </div>
+                        <div class="preview-dots" id="dotsContainer"></div>
+                        <div class="i-btn-area">
+                            <button class="i-btn">
+                                <span class="i-letter">i</span>
+                                <span class="i-text">iTabs</span>
+                            </button>
+                        </div>
+                        <div class="support-links">
+                            <a href="https://www.patreon.com/user?u=47580275" target="_blank" class="support-link">❤️ Patreon</a>
+                            <a href="https://sunlineproducts.chipply.com" target="_blank" class="support-link">🛒 Merch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <label>Your Code</label>
+                <div class="code-box" id="codeOutput"></div>
+                <button class="btn btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy HTML Code</button>
+            </div>
+        </div>
     </div>
-</div>
-
-<script>
-    function openPopup(type) {
-        document.getElementById('popup-' + type).classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closePopup(type) {
-        document.getElementById('popup-' + type).classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Close popup when clicking overlay
-    document.querySelectorAll('.itabs-popup-overlay').forEach(overlay => {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-                document.body.style.overflow = '';
+    
+    <script>
+        let videoId = '';
+        let videoTitle = '';
+        let cards = [];
+        let currentSlide = 0;
+        
+        // Load saved API key on page load
+        window.onload = function() {
+            const savedKey = localStorage.getItem('itabs_api_key');
+            const savedProvider = localStorage.getItem('itabs_api_provider');
+            if (savedKey) {
+                document.getElementById('apiKey').value = savedKey;
             }
-        });
-    });
+            if (savedProvider) {
+                document.getElementById('aiProvider').value = savedProvider;
+            }
+            updateApiPlaceholder();
+        };
+        
+        function updateApiPlaceholder() {
+            const provider = document.getElementById('aiProvider').value;
+            const input = document.getElementById('apiKey');
+            if (provider === 'claude') {
+                input.placeholder = 'sk-ant-api03-... (get from console.anthropic.com)';
+            } else {
+                input.placeholder = 'AIza... (get from aistudio.google.com)';
+            }
+        }
+        
+        function saveApiKey() {
+            const key = document.getElementById('apiKey').value.trim();
+            const provider = document.getElementById('aiProvider').value;
+            if (key) {
+                localStorage.setItem('itabs_api_key', key);
+                localStorage.setItem('itabs_api_provider', provider);
+                const btn = document.querySelector('.btn-save-key');
+                btn.textContent = '✅ Saved!';
+                btn.classList.add('saved');
+                setTimeout(() => {
+                    btn.textContent = '💾 Save Key';
+                    btn.classList.remove('saved');
+                }, 2000);
+            }
+        }
+        
+        function extractVideoId(url) {
+            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]+)/);
+            return match ? match[1] : '';
+        }
+        
+        function updateThumbnail() {
+            const url = document.getElementById('youtubeUrl').value;
+            videoId = extractVideoId(url);
+            const thumb = document.getElementById('thumbnail');
+            
+            if (videoId) {
+                thumb.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                thumb.style.display = 'block';
+                thumb.onerror = function() {
+                    this.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                };
+            } else {
+                thumb.style.display = 'none';
+            }
+        }
+        
+        function clearForm() {
+            // Clear all form fields
+            document.getElementById('youtubeUrl').value = '';
+            document.getElementById('transcript').value = '';
+            document.getElementById('thumbnail').style.display = 'none';
+            
+            // Clear sponsor
+            document.getElementById('sponsorName').value = '';
+            document.getElementById('sponsorMessage').value = '';
+            document.getElementById('sponsorLink').value = '';
+            
+            // Clear creator links
+            document.getElementById('xHandle').value = '';
+            document.getElementById('linktreeLink').value = '';
+            document.getElementById('patreonLink').value = '';
+            document.getElementById('merchLink').value = '';
+            document.getElementById('instagramLink').value = '';
+            
+            // Hide output section
+            document.getElementById('outputSection').style.display = 'none';
+            
+            // Clear status
+            document.getElementById('status').className = 'status';
+            
+            // Reset variables
+            videoId = '';
+            videoTitle = '';
+            cards = [];
+            currentSlide = 0;
+        }
+        
+        function showStatus(msg, type) {
+            const el = document.getElementById('status');
+            el.textContent = msg;
+            el.className = 'status ' + type;
+        }
+        
+        async function generate() {
+            const url = document.getElementById('youtubeUrl').value;
+            const transcript = document.getElementById('transcript').value.trim();
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const provider = document.getElementById('aiProvider').value;
+            
+            if (!apiKey) {
+                showStatus('Please enter your API key', 'error');
+                return;
+            }
+            
+            if (!url || !extractVideoId(url)) {
+                showStatus('Please enter a valid YouTube URL', 'error');
+                return;
+            }
+            
+            if (!transcript) {
+                showStatus('Please paste the video transcript', 'error');
+                return;
+            }
+            
+            videoId = extractVideoId(url);
+            
+            showStatus('🤖 AI is creating your iTabs...', 'loading');
+            document.getElementById('generateBtn').disabled = true;
+            
+            const prompt = `Analyse this YouTube video transcript and create content for an interactive summary.
 
-    // Close on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.itabs-popup-overlay.active').forEach(overlay => {
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
+Create:
+1. A catchy video title (under 60 characters)
+2. Exactly 4 cards summarising key takeaways. For each card:
+   - emoji: An icon that represents the topic
+   - title: Short catchy title (3-6 words)
+   - dos: Two actionable things TO DO (under 60 chars each)
+   - donts: Two things to AVOID (under 60 chars each)
+
+3. Popup content:
+   - what: 1-2 sentences explaining what this video covers
+   - why: 1-2 sentences on why someone should watch
+   - how: 1-2 sentences on how to apply what they'll learn
+
+4. Check if there's a SPONSOR mentioned in the transcript (look for "sponsored by", "use code", "promo code", affiliate links, discount offers). If found, extract:
+   - sponsorName: Company/product name
+   - sponsorMessage: The pitch including any promo codes
+   - sponsorLink: URL if mentioned (or empty string)
+   If no sponsor found, set sponsor to null.
+
+Respond ONLY with valid JSON, no other text:
+{
+  "title": "Catchy Video Title",
+  "cards": [
+    {"emoji": "💡", "title": "Card Title", "dos": ["Do this", "Do that"], "donts": ["Avoid this", "Avoid that"]}
+  ],
+  "popup": {
+    "what": "Description...",
+    "why": "Why useful...",
+    "how": "How to use..."
+  },
+  "sponsor": {
+    "name": "Sponsor Name",
+    "message": "Pitch with promo code",
+    "link": "https://..."
+  }
+}
+
+Transcript:
+${transcript.substring(0, 12000)}`;
+            
+            try {
+                let responseText = '';
+                
+                if (provider === 'claude') {
+                    const response = await fetch('https://api.anthropic.com/v1/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': apiKey,
+                            'anthropic-version': '2023-06-01',
+                            'anthropic-dangerous-direct-browser-access': 'true'
+                        },
+                        body: JSON.stringify({
+                            model: 'claude-sonnet-4-20250514',
+                            max_tokens: 2000,
+                            messages: [{ role: 'user', content: prompt }]
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        const err = await response.json();
+                        throw new Error(err.error?.message || 'Claude API error: ' + response.status);
+                    }
+                    
+                    const data = await response.json();
+                    responseText = data.content?.[0]?.text || '';
+                    
+                } else {
+                    // Gemini
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }]
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        const err = await response.json();
+                        throw new Error(err.error?.message || 'Gemini API error: ' + response.status);
+                    }
+                    
+                    const data = await response.json();
+                    responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                }
+                
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    const parsed = JSON.parse(jsonMatch[0]);
+                    videoTitle = parsed.title;
+                    cards = parsed.cards;
+                    
+                    // If AI found a sponsor, fill in the fields
+                    if (parsed.sponsor && parsed.sponsor.name) {
+                        document.getElementById('sponsorName').value = parsed.sponsor.name;
+                        document.getElementById('sponsorMessage').value = parsed.sponsor.message || '';
+                        document.getElementById('sponsorLink').value = parsed.sponsor.link || '';
+                        showStatus('✅ iTabs created! AI found sponsor: ' + parsed.sponsor.name, 'success');
+                    } else {
+                        showStatus('✅ iTabs created! No sponsor detected in transcript.', 'success');
+                    }
+                    
+                    document.getElementById('outputSection').style.display = 'block';
+                    renderPreview(parsed);
+                    generateCode(parsed);
+                    
+                    // Scroll to output
+                    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    throw new Error('Could not parse AI response');
+                }
+                
+            } catch (error) {
+                console.error(error);
+                showStatus('❌ Error: ' + error.message, 'error');
+            }
+            
+            document.getElementById('generateBtn').disabled = false;
+        }
+        
+        function getSponsorFromForm() {
+            const name = document.getElementById('sponsorName').value.trim();
+            const message = document.getElementById('sponsorMessage').value.trim();
+            const link = document.getElementById('sponsorLink').value.trim();
+            
+            if (!name && !message) return null;
+            
+            return { name, message, link, emoji: '🎁' };
+        }
+        
+        function getSupportLinksFromForm() {
+            return {
+                x: document.getElementById('xHandle').value.trim(),
+                linktree: document.getElementById('linktreeLink').value.trim(),
+                patreon: document.getElementById('patreonLink').value.trim(),
+                merch: document.getElementById('merchLink').value.trim(),
+                instagram: document.getElementById('instagramLink').value.trim()
+            };
+        }
+        
+        function renderPreview(data) {
+            document.getElementById('previewTitle').textContent = data.title;
+            
+            const sponsor = getSponsorFromForm();
+            const supportLinks = getSupportLinksFromForm();
+            
+            // Video - autoplay when page loads
+            document.getElementById('previewVideo').innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+            `;
+            
+            // Slides - Sponsor first (if exists), then content cards
+            let slides = [];
+            
+            // Sponsor slide (only if sponsor exists)
+            if (sponsor && sponsor.name) {
+                slides.push(`
+                    <div class="preview-slide sponsor-slide">
+                        <div class="slide-icon">${sponsor.emoji}</div>
+                        <div class="slide-title">Sponsored by ${sponsor.name}</div>
+                        <p class="sp-msg">${sponsor.message}</p>
+                        <a href="${sponsor.link}" target="_blank">Learn More</a>
+                    </div>
+                `);
+            }
+            
+            // Content slides
+            data.cards.forEach(card => {
+                slides.push(`
+                    <div class="preview-slide">
+                        <div class="slide-icon">${card.emoji}</div>
+                        <div class="slide-title">${card.title}</div>
+                        ${card.dos.map(d => `<div class="do-item">${d}</div>`).join('')}
+                        ${card.donts.map(d => `<div class="dont-item">${d}</div>`).join('')}
+                    </div>
+                `);
+            });
+            
+            document.getElementById('previewTrack').innerHTML = slides.join('');
+            
+            // Dots
+            const totalSlides = slides.length;
+            document.getElementById('dotsContainer').innerHTML = Array(totalSlides).fill(0)
+                .map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>`)
+                .join('');
+            
+            currentSlide = 0;
+            updateSlidePosition();
+            
+            // Start auto-loop
+            startAutoLoop();
+        }
+        
+        let autoLoopInterval = null;
+        let userInteracted = false;
+        
+        function startAutoLoop() {
+            userInteracted = false;
+            const sponsor = getSponsorFromForm();
+            const totalSlides = cards.length + (sponsor && sponsor.name ? 1 : 0);
+            
+            autoLoopInterval = setInterval(() => {
+                if (userInteracted) {
+                    clearInterval(autoLoopInterval);
+                    return;
+                }
+                
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateSlidePosition();
+                } else {
+                    // Completed one loop, stop
+                    clearInterval(autoLoopInterval);
+                }
+            }, 4000); // 4 seconds per slide
+        }
+        
+        function stopAutoLoop() {
+            userInteracted = true;
+            if (autoLoopInterval) {
+                clearInterval(autoLoopInterval);
+            }
+        }
+        
+        function goToSlide(i) {
+            stopAutoLoop();
+            currentSlide = i;
+            updateSlidePosition();
+        }
+        
+        function prevSlide() {
+            stopAutoLoop();
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlidePosition();
+            }
+        }
+        
+        function nextSlide() {
+            stopAutoLoop();
+            const sponsor = getSponsorFromForm();
+            const total = cards.length + (sponsor && sponsor.name ? 1 : 0);
+            if (currentSlide < total - 1) {
+                currentSlide++;
+                updateSlidePosition();
+            }
+        }
+        
+        function updateSlidePosition() {
+            document.getElementById('previewTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
             });
         }
-    });
-</script>
-```
-
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+        
+        function generateCode(data) {
+            const sponsor = getSponsorFromForm();
+            const supportLinks = getSupportLinksFromForm();
+            
+            // Build cards array - sponsor first if exists
+            let allCards = [];
+            if (sponsor && sponsor.name) {
+                allCards.push({ type: 'sponsor', emoji: '🎁', name: sponsor.name, message: sponsor.message, link: sponsor.link });
+            }
+            allCards = allCards.concat(data.cards.map(c => ({ type: 'content', ...c })));
+            
+            // Build support links HTML
+            let supportHtml = '';
+            if (supportLinks.x) {
+                const xHandle = supportLinks.x.startsWith('@') ? supportLinks.x : '@' + supportLinks.x;
+                const xUrl = 'https://x.com/' + xHandle.replace('@', '');
+                supportHtml += `<a href="${xUrl}" target="_blank">𝕏 ${xHandle}</a>`;
+            }
+            if (supportLinks.linktree) supportHtml += `<a href="${supportLinks.linktree}" target="_blank">🔗 Linktree</a>`;
+            if (supportLinks.patreon) supportHtml += `<a href="${supportLinks.patreon}" target="_blank">❤️ Patreon</a>`;
+            if (supportLinks.merch) supportHtml += `<a href="${supportLinks.merch}" target="_blank">🛒 Merch</a>`;
+            if (supportLinks.instagram) supportHtml += `<a href="${supportLinks.instagram}" target="_blank">📸 Instagram</a>`;
+            
+            // Build sponsor popup section
+            let sponsorPopupHtml = '';
+            if (sponsor && sponsor.name) {
+                sponsorPopupHtml = `<div class="spsec"><div style="font-size:0.7em;color:#05CE78;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">🎁 Sponsor</div><p>${escapeHtml(sponsor.message)}</p><a href="${sponsor.link}" target="_blank">Learn More →</a></div>`;
+            }
+            
+            const code = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtml(data.title)}</title>
+<meta property="og:title" content="${escapeHtml(data.title)}">
+<meta property="og:image" content="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Poppins',sans-serif;background:#f7f8fa;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.15);max-width:420px;width:100%}.header{background:linear-gradient(135deg,#05CE78,#00a862);padding:20px 15px;color:white;text-align:center;position:relative;overflow:hidden}.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:20px 20px}.header::after{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:150%;height:100%;background:radial-gradient(ellipse at center,rgba(255,255,255,0.2) 0%,transparent 70%)}.header h1{font-size:1.1em;margin-bottom:5px;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,0.2)}.hint{font-size:0.7em;opacity:0.9;position:relative;z-index:1}.itabs-badge{display:inline-block;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.65em;margin-top:8px;position:relative;z-index:1;backdrop-filter:blur(5px)}.video iframe{width:100%;aspect-ratio:16/9;border:none;display:block}.slides-wrap{position:relative}.slides{overflow:hidden}.track{display:flex;transition:transform 0.4s}.slide{min-width:100%;padding:15px 55px}.icon{font-size:1.8em;margin-bottom:8px}.stitle{font-size:0.95em;font-weight:700;color:#1a365d;margin-bottom:10px}.do,.dont{display:flex;gap:8px;margin-bottom:6px;font-size:0.8em;color:#4a5568}.do::before{content:'✓';color:#05CE78;font-weight:bold}.dont::before{content:'✗';color:#ef4444;font-weight:bold}.nav-l,.nav-r{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.9);color:#64748b;font-size:1.2em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);z-index:10}.nav-l{left:5px}.nav-r{right:5px}.nav-l:hover,.nav-r:hover{background:#05CE78;color:white}.dots{display:flex;justify-content:center;gap:6px;padding:8px;background:#f8f9fa}.dot{width:8px;height:8px;border-radius:50%;background:#cbd5e0;cursor:pointer}.dot.active{background:#05CE78;transform:scale(1.3)}.ibtn-wrap{display:flex;justify-content:center;padding:10px 15px 12px;background:#f8f9fa}.ibtn{width:50px;height:50px;background:#05CE78;color:white;border-radius:50%;border:none;cursor:pointer;box-shadow:0 4px 15px rgba(5,206,120,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}.ibtn .il{font-size:1.3em;font-weight:700;font-style:italic}.ibtn .it{font-size:0.45em;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}.support{display:flex;justify-content:center;gap:15px;padding:10px;background:#f8f9fa;border-top:1px solid #eee}.support a{font-size:0.75em;color:#05CE78;text-decoration:none}.sponsor{text-align:center}.sponsor .sp-msg{font-size:0.85em;color:#4a5568;margin-bottom:12px}.sponsor a{display:inline-block;background:linear-gradient(135deg,#05CE78,#00a862);color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.8em}.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;padding:20px}.overlay.show{display:flex}.popup{background:white;border-radius:20px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto}.phead{padding:15px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}.phead h3{color:#1a365d}.pclose{width:32px;height:32px;background:#f1f5f9;border:none;border-radius:50%;font-size:1.2em;cursor:pointer}.pbody{padding:20px}.psec{margin-bottom:15px}.psec h4{color:#05CE78;font-size:0.9em;margin-bottom:5px}.psec p{color:#4a5568;font-size:0.85em;line-height:1.5}.spsec{background:#f0fdf4;border:2px solid #05CE78;border-radius:12px;padding:15px;margin:0 20px 15px;text-align:center}.spsec p{font-size:0.85em;color:#4a5568;margin-bottom:10px}.spsec a{color:#05CE78;font-weight:600;text-decoration:none}.pbtn{display:block;width:calc(100% - 40px);margin:0 20px 20px;padding:14px;background:linear-gradient(135deg,#05CE78,#00a862);color:white;text-align:center;text-decoration:none;border-radius:12px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="header"><h1>${escapeHtml(data.title)}</h1><div class="hint">Watch & swipe through key points ↓</div><div class="itabs-badge">⚡ Powered by iTabs</div></div>
+<div class="video"><iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe></div>
+<div class="slides-wrap"><button class="nav-l" onclick="prev()">‹</button><div class="slides"><div class="track" id="track"></div></div><button class="nav-r" onclick="next()">›</button></div>
+<div class="dots" id="dots"></div>
+<div class="ibtn-wrap"><button class="ibtn" onclick="openP()"><span class="il">i</span><span class="it">iTabs</span></button></div>
+${supportHtml ? `<div class="support">${supportHtml}</div>` : ''}
+</div>
+<div class="overlay" id="overlay" onclick="closeP(event)">
+<div class="popup" onclick="event.stopPropagation()">
+<div class="phead"><h3>About This Video</h3><button class="pclose" onclick="closeP()">×</button></div>
+<div class="pbody">
+<div class="psec"><h4>What is it?</h4><p>${escapeHtml(data.popup.what)}</p></div>
+<div class="psec"><h4>Why watch?</h4><p>${escapeHtml(data.popup.why)}</p></div>
+<div class="psec"><h4>How to use it</h4><p>${escapeHtml(data.popup.how)}</p></div>
+</div>
+${sponsorPopupHtml}
+<a href="https://youtube.com/watch?v=${videoId}" class="pbtn" target="_blank">Watch Full Video</a>
+</div>
+</div>
+<div class="overlay" id="iOverlay" onclick="closeI(event)">
+<div class="popup" onclick="event.stopPropagation()">
+<div class="phead"><h3>What is iTabs?</h3><button class="pclose" onclick="closeI()">×</button></div>
+<div class="pbody">
+<div class="psec"><h4>✨ Info at the point of confusion</h4><p>iTabs turns content into interactive cards. Watch videos while swiping through key points.</p></div>
+<div class="psec"><h4>🚀 Make your own</h4><p>Create iTabs for YouTube videos, products, or anything that needs explaining.</p></div>
+</div>
+<a href="https://itabs.ai" class="pbtn" target="_blank">Try iTabs Free</a>
+</div>
+</div>
+<script>
+const cards=${JSON.stringify(allCards)};let cur=0;let looping=true;let loopInt;
+function render(){document.getElementById('track').innerHTML=cards.map(c=>c.type==='sponsor'?'<div class="slide sponsor"><div class="icon">'+c.emoji+'</div><div class="stitle">Sponsored by '+c.name+'</div><p class="sp-msg">'+c.message+'</p><a href="'+c.link+'" target="_blank">Try Framer Free</a></div>':'<div class="slide"><div class="icon">'+c.emoji+'</div><div class="stitle">'+c.title+'</div>'+c.dos.map(d=>'<div class="do">'+d+'</div>').join('')+c.donts.map(d=>'<div class="dont">'+d+'</div>').join('')+'</div>').join('');document.getElementById('dots').innerHTML=cards.map((_,i)=>'<div class="dot'+(i===cur?' active':'')+'" onclick="go('+i+')"></div>').join('');document.getElementById('track').style.transform='translateX(-'+cur*100+'%)';}
+function stopLoop(){looping=false;clearInterval(loopInt);}
+function go(i){stopLoop();cur=i;render()}function prev(){stopLoop();if(cur>0){cur--;render()}}function next(){stopLoop();if(cur<cards.length-1){cur++;render()}}
+function openP(){document.getElementById('overlay').classList.add('show')}function closeP(e){if(!e||e.target.id==='overlay')document.getElementById('overlay').classList.remove('show')}
+function openI(){document.getElementById('iOverlay').classList.add('show')}function closeI(e){if(!e||e.target.id==='iOverlay')document.getElementById('iOverlay').classList.remove('show')}
+let sx=0;document.querySelector('.slides').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;stopLoop();});document.querySelector('.slides').addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50){if(d>0&&cur<cards.length-1)cur++;else if(d<0&&cur>0)cur--;render()}});
+render();loopInt=setInterval(()=>{if(!looping)return;if(cur<cards.length-1){cur++;render();}else{stopLoop();}},4000);
+<\/script>
+</body>
+</html>`;
+            
+            document.getElementById('codeOutput').textContent = code;
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('codeOutput').textContent;
+            const btn = document.getElementById('copyBtn');
+            
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(() => {
+                    btn.textContent = '✓ Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = '📋 Copy HTML Code';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }).catch(() => {
+                    fallbackCopy(code, btn);
+                });
+            } else {
+                fallbackCopy(code, btn);
+            }
+        }
+        
+        function fallbackCopy(text, btn) {
+            // Fallback for older browsers or file:// protocol
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy HTML Code';
+                    btn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                alert('Copy failed - please select the code manually and copy');
+            }
+            document.body.removeChild(textarea);
+        }
+        
+        // Swipe support for preview
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => {
+            if (e.target.closest('.preview-slides')) {
+                touchStartX = e.touches[0].clientX;
+            }
+        });
+        
+        document.addEventListener('touchend', e => {
+            if (e.target.closest('.preview-slides')) {
+                const diff = touchStartX - e.changedTouches[0].clientX;
+                const total = cards.length + 1;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentSlide < total - 1) currentSlide++;
+                    else if (diff < 0 && currentSlide > 0) currentSlide--;
+                    updateSlidePosition();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
