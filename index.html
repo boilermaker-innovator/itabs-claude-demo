@@ -1,1229 +1,786 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube iTabs Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(145deg, #0a0a1a 0%, #1a1a3a 50%, #0f0f2a 100%);
-            min-height: 100vh;
-            color: #e2e8f0;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(5, 206, 120, 0.15) 0%, transparent 100%);
-            border-radius: 24px;
-            border: 1px solid rgba(5, 206, 120, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(5, 206, 120, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(5, 206, 120, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            pointer-events: none;
-        }
-        
-        .header::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(5, 206, 120, 0.1) 0%, transparent 50%);
-            animation: pulse 4s ease-in-out infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-        
-        .logo-wrap {
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #05CE78, #00a862);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            color: white;
-            box-shadow: 
-                0 0 30px rgba(5, 206, 120, 0.5),
-                0 0 60px rgba(5, 206, 120, 0.3),
-                inset 0 -2px 10px rgba(0,0,0,0.2);
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        
-        .logo .logo-i {
-            font-size: 2em;
-            font-weight: 800;
-            font-style: italic;
-            line-height: 1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .logo .logo-text {
-            font-size: 0.55em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
-        
-        .header h1 {
-            font-size: 1.6em;
-            color: white;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 20px rgba(5, 206, 120, 0.3);
-        }
-        
-        .header p { 
-            color: #94a3b8; 
-            font-size: 0.9em;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .header .tagline {
-            display: inline-block;
-            background: rgba(5, 206, 120, 0.2);
-            border: 1px solid rgba(5, 206, 120, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.75em;
-            color: #05CE78;
-            margin-top: 12px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .panel {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            font-size: 0.9em;
-            color: #94a3b8;
-            margin-bottom: 8px;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 14px;
-            background: rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-family: inherit;
-            font-size: 1em;
-            margin-bottom: 15px;
-        }
-        
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #05CE78;
-        }
-        
-        textarea { 
-            min-height: 150px; 
-            resize: vertical; 
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 14px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-        
-        .btn:hover { transform: translateY(-2px); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #05CE78, #00a862);
-            color: white;
-        }
-        
-        .btn-copy {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            margin-top: 10px;
-        }
-        
-        .btn-clear {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            border: 1px solid rgba(239, 68, 68, 0.5);
-        }
-        
-        .btn-clear:hover {
-            background: rgba(239, 68, 68, 0.4);
-        }
-        
-        .btn-save-key {
-            background: rgba(5, 206, 120, 0.2);
-            color: #05CE78;
-            border: 1px solid rgba(5, 206, 120, 0.5);
-            padding: 10px 20px;
-            font-size: 0.85em;
-        }
-        
-        .btn-save-key:hover {
-            background: rgba(5, 206, 120, 0.4);
-        }
-        
-        .btn-save-key.saved {
-            background: #05CE78;
-            color: white;
-        }
-        
-        .btn.copied { background: #05CE78; }
-        
-        .api-section {
-            background: rgba(5, 206, 120, 0.1);
-            border: 1px solid rgba(5, 206, 120, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .api-section label {
-            color: #05CE78;
-            font-weight: 600;
-        }
-        
-        .api-section select {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1);
-            color: #e2e8f0;
-            font-family: inherit;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-        
-        .api-section select option {
-            background: #1a1a3a;
-            color: #e2e8f0;
-        }
-        
-        .helper-text {
-            font-size: 0.8em;
-            color: #64748b;
-            margin-top: -10px;
-            margin-bottom: 15px;
-        }
-        
-        .helper-text a { color: #05CE78; }
-        
-        .status {
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            font-size: 0.95em;
-            display: none;
-        }
-        
-        .status.loading {
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid #3b82f6;
-            color: #93c5fd;
-            display: block;
-        }
-        
-        .status.success {
-            background: rgba(5, 206, 120, 0.2);
-            border: 1px solid #05CE78;
-            color: #6ee7b7;
-            display: block;
-        }
-        
-        .status.error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid #ef4444;
-            color: #fca5a5;
-            display: block;
-        }
-        
-        .thumbnail {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        
-        .sponsor-section, .support-section {
-            background: rgba(5, 206, 120, 0.1);
-            border: 1px solid rgba(5, 206, 120, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .sponsor-section label, .support-section label {
-            color: #05CE78;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        #outputSection {
-            display: none;
-        }
-        
-        .code-box {
-            background: #0d1117;
-            border-radius: 12px;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 0.75em;
-            color: #7ee787;
-            max-height: 200px;
-            overflow: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-        
-        .preview-frame {
-            background: #f7f8fa;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        /* Preview card styles */
-        .preview-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        
-        .preview-header {
-            background: linear-gradient(135deg, #05CE78, #00a862);
-            padding: 20px 15px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .preview-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        
-        .preview-header::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%);
-        }
-        
-        .preview-header h2 { 
-            font-size: 1em; 
-            margin-bottom: 5px; 
-            position: relative; 
-            z-index: 1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .preview-hint { 
-            font-size: 0.7em; 
-            opacity: 0.9; 
-            position: relative; 
-            z-index: 1;
-        }
-        
-        .preview-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.65em;
-            margin-top: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .preview-video {
-            background: #000;
-        }
-        
-        .preview-video iframe {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border: none;
-            display: block;
-        }
-        
-        .preview-slides-wrapper {
-            position: relative;
-        }
-        
-        .preview-slides {
-            overflow: hidden;
-        }
-        
-        .preview-track {
-            display: flex;
-            transition: transform 0.3s ease;
-        }
-        
-        .preview-slide {
-            min-width: 100%;
-            padding: 15px 55px;
-        }
-        
-        .slide-icon { font-size: 1.8em; margin-bottom: 8px; }
-        .slide-title { font-weight: 700; color: #1a365d; margin-bottom: 10px; font-size: 0.95em; }
-        
-        .do-item, .dont-item {
-            display: flex;
-            gap: 8px;
-            font-size: 0.8em;
-            color: #4a5568;
-            margin-bottom: 6px;
-        }
-        
-        .do-item::before { content: '✓'; color: #05CE78; font-weight: bold; }
-        .dont-item::before { content: '✗'; color: #ef4444; font-weight: bold; }
-        
-        /* Arrows overlaid on sides */
-        .nav-arrow-left, .nav-arrow-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,0.9);
-            color: #64748b;
-            font-size: 1.2em;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 10;
-        }
-        
-        .nav-arrow-left { left: 5px; }
-        .nav-arrow-right { right: 5px; }
-        .nav-arrow-left:hover, .nav-arrow-right:hover { 
-            background: #05CE78; 
-            color: white; 
-        }
-        
-        .preview-dots {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            padding: 8px;
-            background: #f8f9fa;
-        }
-        
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #cbd5e0;
-            cursor: pointer;
-        }
-        
-        .dot.active { background: #05CE78; transform: scale(1.3); }
-        
-        .i-btn-area {
-            display: flex;
-            justify-content: center;
-            padding: 10px 15px 12px;
-            background: #f8f9fa;
-        }
-        
-        .i-btn {
-            width: 50px;
-            height: 50px;
-            background: #05CE78;
-            color: white;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(5,206,120,0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-        
-        .i-btn .i-letter {
-            font-size: 1.3em;
-            font-weight: 700;
-            font-style: italic;
-        }
-        
-        .i-btn .i-text {
-            font-size: 0.45em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 1px;
-        }
-        
-        /* Sponsor slide */
-        .sponsor-slide {
-            text-align: center;
-        }
-        
-        .sponsor-slide img {
-            max-height: 40px;
-            margin-bottom: 10px;
-        }
-        
-        .sponsor-slide .sp-msg {
-            font-size: 0.85em;
-            color: #4a5568;
-            margin-bottom: 12px;
-        }
-        
-        .sponsor-slide a {
-            display: inline-block;
-            background: linear-gradient(135deg, #05CE78, #00a862);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8em;
-        }
-        
-        .support-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-        }
-        
-        .support-link {
-            font-size: 0.75em;
-            color: #05CE78;
-            text-decoration: none;
-        }
-        
-        .support-link:hover { text-decoration: underline; }
-    </style>
+    <title>AI Business Foundations | VerveX AI</title>
+
+```
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        /* VerveX AI Brand Colors - Professional AI Consulting */
+        --brand-primary: #6366f1;      /* Indigo */
+        --brand-secondary: #8b5cf6;    /* Purple */
+        --brand-accent: #06b6d4;       /* Cyan */
+        --brand-dark: #0f172a;         /* Slate 900 */
+        --bg-dark: #0f172a;
+        --bg-card: #1e293b;
+        --bg-hover: #334155;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border: #334155;
+        --success: #10b981;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        min-height: 100vh;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    /* Header with VerveX branding */
+    header {
+        text-align: center;
+        padding: 40px 20px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 40px;
+        position: relative;
+    }
+    
+    .brand-logo {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--brand-primary);
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+    }
+    
+    .brand-logo span {
+        color: var(--brand-secondary);
+    }
+    
+    h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+    
+    .client-badge {
+        display: inline-block;
+        background: var(--bg-card);
+        border: 1px solid var(--brand-primary);
+        color: var(--brand-primary);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-top: 15px;
+    }
+    
+    /* Welcome box */
+    .welcome-box {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid var(--brand-primary);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .welcome-box h3 {
+        color: var(--brand-primary);
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .welcome-box p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+    }
+    
+    /* iTabs Sections */
+    .itab-section {
+        background: var(--bg-card);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        transition: border-color 0.2s;
+    }
+    
+    .itab-section:hover {
+        border-color: var(--brand-primary);
+    }
+    
+    .itab-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .itab-header:hover { background: var(--bg-hover); }
+    
+    .itab-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .itab-number {
+        width: 36px; height: 36px;
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: white;
+    }
+    
+    .itab-name { font-size: 1.1rem; font-weight: 600; }
+    
+    .itab-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: var(--bg-hover);
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .i-button {
+        width: 32px; height: 32px;
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: serif;
+        font-style: italic;
+    }
+    .i-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    .i-button.active { 
+        background: var(--success); 
+    }
+    
+    .itab-content {
+        display: none;
+        padding: 0 20px 20px;
+        border-top: 1px solid var(--border);
+    }
+    .itab-content.show { display: block; }
+    
+    /* Tabs */
+    .tabs {
+        display: flex;
+        gap: 8px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .tab {
+        padding: 8px 16px;
+        background: var(--bg-hover);
+        border: none;
+        border-radius: 8px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    .tab:hover { color: var(--text-primary); }
+    .tab.active { 
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        color: white; 
+    }
+    
+    .tab-panel { display: none; }
+    .tab-panel.show { display: block; }
+    .tab-panel h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        color: var(--brand-primary);
+    }
+    .tab-panel p { color: var(--text-secondary); margin-bottom: 15px; }
+    .tab-panel ul, .tab-panel ol { margin-left: 20px; color: var(--text-secondary); }
+    .tab-panel li { margin-bottom: 10px; }
+    .tab-panel li strong { color: var(--text-primary); }
+    
+    /* Key Point boxes */
+    .key-point {
+        background: var(--bg-dark);
+        border-left: 4px solid var(--brand-accent);
+        padding: 15px 20px;
+        margin: 15px 0;
+        border-radius: 0 8px 8px 0;
+    }
+    .key-point .label {
+        color: var(--brand-accent);
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .key-point p {
+        color: var(--text-primary);
+        margin-bottom: 0;
+    }
+    
+    /* Action items */
+    .action-item {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+        border: 1px solid var(--success);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+    .action-item h4 {
+        color: var(--success);
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+    .action-item ul { margin-left: 20px; }
+    .action-item li { color: var(--text-secondary); margin-bottom: 8px; }
+    
+    /* Tool/Resource cards */
+    .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 15px 0;
+    }
+    .tool-card {
+        background: var(--bg-dark);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        transition: border-color 0.2s;
+    }
+    .tool-card:hover {
+        border-color: var(--brand-primary);
+    }
+    .tool-card .name {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+    .tool-card .desc {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+    }
+    
+    /* Contact/Support section */
+    .support-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .support-box h3 {
+        color: var(--brand-primary);
+        margin-bottom: 10px;
+    }
+    .support-box p {
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+    }
+    .support-link {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s;
+    }
+    .support-link:hover { transform: scale(1.05); }
+    
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+    }
+    footer a { color: var(--brand-primary); text-decoration: none; }
+    
+    /* Smart Link styles */
+    .smart-link {
+        color: var(--brand-accent);
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+    }
+    .smart-link:hover {
+        color: var(--brand-primary);
+    }
+    
+    /* Link Preview Popup */
+    .link-popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .link-popup-overlay.show {
+        display: flex;
+    }
+    .link-popup {
+        background: var(--bg-card);
+        border: 1px solid var(--brand-primary);
+        border-radius: 16px;
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .link-popup-header {
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .link-popup-header h3 {
+        color: white;
+        font-size: 1.1rem;
+    }
+    .link-popup-close {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+    .link-popup-body {
+        padding: 20px;
+    }
+    .link-popup-section {
+        margin-bottom: 15px;
+    }
+    .link-popup-label {
+        color: var(--brand-accent);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+    .link-popup-text {
+        color: var(--text-primary);
+    }
+    .link-popup-url {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        word-break: break-all;
+    }
+    .link-popup-actions {
+        display: flex;
+        gap: 10px;
+        padding: 20px;
+        border-top: 1px solid var(--border);
+    }
+    .link-popup-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        font-family: 'Inter', sans-serif;
+    }
+    .link-popup-btn-secondary {
+        background: var(--bg-hover);
+        color: var(--text-primary);
+    }
+    .link-popup-btn-primary {
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        color: white;
+    }
+</style>
+```
+
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo-wrap">
-                <div class="logo">
-                    <span class="logo-i">i</span>
-                    <span class="logo-text">iTabs</span>
+        <header>
+            <div class="brand-logo">Verve<span>X</span> AI</div>
+            <h1>AI Business Foundations</h1>
+            <p class="subtitle">Your personalised AI training reference guide</p>
+            <span class="client-badge">Prepared for: Sarah Mitchell</span>
+        </header>
+
+```
+    <div class="welcome-box">
+        <h3>👋 Welcome to Your Training Guide</h3>
+        <p>This guide summarises everything we covered in your AI Strategy session. Tap any section to expand, find what you need in seconds.</p>
+    </div>
+    
+    <!-- Section 1: What We Covered -->
+    <div class="itab-section">
+        <div class="itab-header" onclick="toggleSection(this)">
+            <div class="itab-title">
+                <span class="itab-number">1</span>
+                <span class="itab-name">What We Covered</span>
+                <span class="itab-badge">Overview</span>
+            </div>
+            <button class="i-button">i</button>
+        </div>
+        <div class="itab-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(this, 'summary-1')">Summary</button>
+                <button class="tab" onclick="showTab(this, 'goals-1')">Your Goals</button>
+            </div>
+            <div class="tab-panel show" id="summary-1">
+                <h3>Session Summary</h3>
+                <p>In this session, we covered the two main paths for using AI in your business:</p>
+                <ul>
+                    <li><strong>AI Consulting Path:</strong> Advising others on AI strategy and implementation</li>
+                    <li><strong>AI Building Path:</strong> Creating AI-powered tools and automations</li>
+                </ul>
+                <p>We also discussed what's actually working in the market right now, based on real data from thousands of AI businesses.</p>
+                <div class="key-point">
+                    <div class="label">💡 Key Insight</div>
+                    <p>91% of successful first clients come from warm outreach - people you already know or can get introduced to.</p>
                 </div>
             </div>
-            <h1>YouTube iTabs Generator</h1>
-            <p>Paste URL + transcript → Get shareable iTabs</p>
-            <div class="tagline">⚡ AI-Powered • Instant Results</div>
-        </div>
-        
-        <div class="panel">
-            <div class="api-section">
-                <label>🔑 AI API Key (required)</label>
-                <select id="aiProvider" onchange="updateApiPlaceholder()">
-                    <option value="claude">Claude (Anthropic)</option>
-                    <option value="gemini">Gemini (Google)</option>
-                </select>
-                <input type="password" id="apiKey" placeholder="Paste your API key here">
-                <p class="helper-text">
-                    Get your key: 
-                    <a href="https://console.anthropic.com/settings/keys" target="_blank">Claude</a> | 
-                    <a href="https://aistudio.google.com/app/apikey" target="_blank">Gemini (free)</a>
-                </p>
-                <button class="btn btn-save-key" onclick="saveApiKey()">💾 Save Key</button>
-            </div>
-            
-            <label>1. YouTube URL</label>
-            <input type="url" id="youtubeUrl" placeholder="https://youtube.com/watch?v=..." oninput="updateThumbnail()">
-            <img id="thumbnail" class="thumbnail" src="">
-            
-            <label>2. Paste Transcript</label>
-            <textarea id="transcript" placeholder="Go to YouTube → Click '...' under video → Show transcript → Copy all text and paste here"></textarea>
-            <p class="helper-text">Tip: Click "Show transcript" under any YouTube video, then select all and copy</p>
-            
-            <div class="sponsor-section">
-                <label>🎁 Sponsor (AI will auto-detect from transcript)</label>
-                <input type="text" id="sponsorName" placeholder="Sponsor name (e.g. NordVPN)">
-                <textarea id="sponsorMessage" placeholder="Sponsor message with promo code" style="min-height: 60px;"></textarea>
-                <input type="url" id="sponsorLink" placeholder="Sponsor link">
-                <p class="helper-text">Leave blank for no sponsor card</p>
-            </div>
-            
-            <div class="support-section">
-                <label>❤️ Creator Links (optional)</label>
-                <input type="text" id="xHandle" placeholder="X/Twitter handle (e.g. @yourhandle)">
-                <input type="url" id="linktreeLink" placeholder="Linktree URL">
-                <input type="url" id="patreonLink" placeholder="Patreon URL">
-                <input type="url" id="merchLink" placeholder="Merch store URL">
-                <input type="url" id="instagramLink" placeholder="Instagram URL">
-            </div>
-            
-            <div id="status" class="status"></div>
-            
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-primary" id="generateBtn" onclick="generate()" style="flex: 1;">
-                    🚀 Generate iTabs
-                </button>
-                <button class="btn btn-clear" onclick="clearForm()" style="flex: 1;">
-                    🗑️ Clear
-                </button>
-            </div>
-        </div>
-        
-        <div id="outputSection">
-            <div class="panel">
-                <label>Preview</label>
-                <div class="preview-frame">
-                    <div class="preview-card">
-                        <div class="preview-header">
-                            <h2 id="previewTitle">Video Title</h2>
-                            <div class="preview-hint">Watch & swipe through key points ↓</div>
-                            <div class="preview-badge">⚡ Powered by iTabs</div>
-                        </div>
-                        <div class="preview-video" id="previewVideo"></div>
-                        <div class="preview-slides-wrapper">
-                            <button class="nav-arrow-left" onclick="prevSlide()">‹</button>
-                            <div class="preview-slides">
-                                <div class="preview-track" id="previewTrack"></div>
-                            </div>
-                            <button class="nav-arrow-right" onclick="nextSlide()">›</button>
-                        </div>
-                        <div class="preview-dots" id="dotsContainer"></div>
-                        <div class="i-btn-area">
-                            <button class="i-btn">
-                                <span class="i-letter">i</span>
-                                <span class="i-text">iTabs</span>
-                            </button>
-                        </div>
-                        <div class="support-links">
-                            <a href="https://www.patreon.com/user?u=47580275" target="_blank" class="support-link">❤️ Patreon</a>
-                            <a href="https://sunlineproducts.chipply.com" target="_blank" class="support-link">🛒 Merch</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="panel">
-                <label>Your Code</label>
-                <div class="code-box" id="codeOutput"></div>
-                <button class="btn btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy HTML Code</button>
+            <div class="tab-panel" id="goals-1">
+                <h3>Your Goals</h3>
+                <ul>
+                    <li><strong>Short-term:</strong> Identify 3 potential clients in your network within 2 weeks</li>
+                    <li><strong>Medium-term:</strong> Complete your first AI audit project within 30 days</li>
+                    <li><strong>Long-term:</strong> Build recurring revenue through ongoing AI consulting</li>
+                </ul>
             </div>
         </div>
     </div>
     
-    <script>
-        let videoId = '';
-        let videoTitle = '';
-        let cards = [];
-        let currentSlide = 0;
-        
-        // Load saved API key on page load
-        window.onload = function() {
-            const savedKey = localStorage.getItem('itabs_api_key');
-            const savedProvider = localStorage.getItem('itabs_api_provider');
-            if (savedKey) {
-                document.getElementById('apiKey').value = savedKey;
-            }
-            if (savedProvider) {
-                document.getElementById('aiProvider').value = savedProvider;
-            }
-            updateApiPlaceholder();
-        };
-        
-        function updateApiPlaceholder() {
-            const provider = document.getElementById('aiProvider').value;
-            const input = document.getElementById('apiKey');
-            if (provider === 'claude') {
-                input.placeholder = 'sk-ant-api03-... (get from console.anthropic.com)';
-            } else {
-                input.placeholder = 'AIza... (get from aistudio.google.com)';
-            }
-        }
-        
-        function saveApiKey() {
-            const key = document.getElementById('apiKey').value.trim();
-            const provider = document.getElementById('aiProvider').value;
-            if (key) {
-                localStorage.setItem('itabs_api_key', key);
-                localStorage.setItem('itabs_api_provider', provider);
-                const btn = document.querySelector('.btn-save-key');
-                btn.textContent = '✅ Saved!';
-                btn.classList.add('saved');
-                setTimeout(() => {
-                    btn.textContent = '💾 Save Key';
-                    btn.classList.remove('saved');
-                }, 2000);
-            }
-        }
-        
-        function extractVideoId(url) {
-            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]+)/);
-            return match ? match[1] : '';
-        }
-        
-        function updateThumbnail() {
-            const url = document.getElementById('youtubeUrl').value;
-            videoId = extractVideoId(url);
-            const thumb = document.getElementById('thumbnail');
-            
-            if (videoId) {
-                thumb.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-                thumb.style.display = 'block';
-                thumb.onerror = function() {
-                    this.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                };
-            } else {
-                thumb.style.display = 'none';
-            }
-        }
-        
-        function clearForm() {
-            // Clear all form fields
-            document.getElementById('youtubeUrl').value = '';
-            document.getElementById('transcript').value = '';
-            document.getElementById('thumbnail').style.display = 'none';
-            
-            // Clear sponsor
-            document.getElementById('sponsorName').value = '';
-            document.getElementById('sponsorMessage').value = '';
-            document.getElementById('sponsorLink').value = '';
-            
-            // Clear creator links
-            document.getElementById('xHandle').value = '';
-            document.getElementById('linktreeLink').value = '';
-            document.getElementById('patreonLink').value = '';
-            document.getElementById('merchLink').value = '';
-            document.getElementById('instagramLink').value = '';
-            
-            // Hide output section
-            document.getElementById('outputSection').style.display = 'none';
-            
-            // Clear status
-            document.getElementById('status').className = 'status';
-            
-            // Reset variables
-            videoId = '';
-            videoTitle = '';
-            cards = [];
-            currentSlide = 0;
-        }
-        
-        function showStatus(msg, type) {
-            const el = document.getElementById('status');
-            el.textContent = msg;
-            el.className = 'status ' + type;
-        }
-        
-        async function generate() {
-            const url = document.getElementById('youtubeUrl').value;
-            const transcript = document.getElementById('transcript').value.trim();
-            const apiKey = document.getElementById('apiKey').value.trim();
-            const provider = document.getElementById('aiProvider').value;
-            
-            if (!apiKey) {
-                showStatus('Please enter your API key', 'error');
-                return;
-            }
-            
-            if (!url || !extractVideoId(url)) {
-                showStatus('Please enter a valid YouTube URL', 'error');
-                return;
-            }
-            
-            if (!transcript) {
-                showStatus('Please paste the video transcript', 'error');
-                return;
-            }
-            
-            videoId = extractVideoId(url);
-            
-            showStatus('🤖 AI is creating your iTabs...', 'loading');
-            document.getElementById('generateBtn').disabled = true;
-            
-            const prompt = `Analyse this YouTube video transcript and create content for an interactive summary.
-
-Create:
-1. A catchy video title (under 60 characters)
-2. Exactly 4 cards summarising key takeaways. For each card:
-   - emoji: An icon that represents the topic
-   - title: Short catchy title (3-6 words)
-   - dos: Two actionable things TO DO (under 60 chars each)
-   - donts: Two things to AVOID (under 60 chars each)
-
-3. Popup content:
-   - what: 1-2 sentences explaining what this video covers
-   - why: 1-2 sentences on why someone should watch
-   - how: 1-2 sentences on how to apply what they'll learn
-
-4. Check if there's a SPONSOR mentioned in the transcript (look for "sponsored by", "use code", "promo code", affiliate links, discount offers). If found, extract:
-   - sponsorName: Company/product name
-   - sponsorMessage: The pitch including any promo codes
-   - sponsorLink: URL if mentioned (or empty string)
-   If no sponsor found, set sponsor to null.
-
-Respond ONLY with valid JSON, no other text:
-{
-  "title": "Catchy Video Title",
-  "cards": [
-    {"emoji": "💡", "title": "Card Title", "dos": ["Do this", "Do that"], "donts": ["Avoid this", "Avoid that"]}
-  ],
-  "popup": {
-    "what": "Description...",
-    "why": "Why useful...",
-    "how": "How to use..."
-  },
-  "sponsor": {
-    "name": "Sponsor Name",
-    "message": "Pitch with promo code",
-    "link": "https://..."
-  }
-}
-
-Transcript:
-${transcript.substring(0, 12000)}`;
-            
-            try {
-                let responseText = '';
-                
-                if (provider === 'claude') {
-                    const response = await fetch('https://api.anthropic.com/v1/messages', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-api-key': apiKey,
-                            'anthropic-version': '2023-06-01',
-                            'anthropic-dangerous-direct-browser-access': 'true'
-                        },
-                        body: JSON.stringify({
-                            model: 'claude-sonnet-4-20250514',
-                            max_tokens: 2000,
-                            messages: [{ role: 'user', content: prompt }]
-                        })
-                    });
-                    
-                    if (!response.ok) {
-                        const err = await response.json();
-                        throw new Error(err.error?.message || 'Claude API error: ' + response.status);
-                    }
-                    
-                    const data = await response.json();
-                    responseText = data.content?.[0]?.text || '';
-                    
-                } else {
-                    // Gemini
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }]
-                        })
-                    });
-                    
-                    if (!response.ok) {
-                        const err = await response.json();
-                        throw new Error(err.error?.message || 'Gemini API error: ' + response.status);
-                    }
-                    
-                    const data = await response.json();
-                    responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                }
-                
-                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-                if (jsonMatch) {
-                    const parsed = JSON.parse(jsonMatch[0]);
-                    videoTitle = parsed.title;
-                    cards = parsed.cards;
-                    
-                    // If AI found a sponsor, fill in the fields
-                    if (parsed.sponsor && parsed.sponsor.name) {
-                        document.getElementById('sponsorName').value = parsed.sponsor.name;
-                        document.getElementById('sponsorMessage').value = parsed.sponsor.message || '';
-                        document.getElementById('sponsorLink').value = parsed.sponsor.link || '';
-                        showStatus('✅ iTabs created! AI found sponsor: ' + parsed.sponsor.name, 'success');
-                    } else {
-                        showStatus('✅ iTabs created! No sponsor detected in transcript.', 'success');
-                    }
-                    
-                    document.getElementById('outputSection').style.display = 'block';
-                    renderPreview(parsed);
-                    generateCode(parsed);
-                    
-                    // Scroll to output
-                    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    throw new Error('Could not parse AI response');
-                }
-                
-            } catch (error) {
-                console.error(error);
-                showStatus('❌ Error: ' + error.message, 'error');
-            }
-            
-            document.getElementById('generateBtn').disabled = false;
-        }
-        
-        function getSponsorFromForm() {
-            const name = document.getElementById('sponsorName').value.trim();
-            const message = document.getElementById('sponsorMessage').value.trim();
-            const link = document.getElementById('sponsorLink').value.trim();
-            
-            if (!name && !message) return null;
-            
-            return { name, message, link, emoji: '🎁' };
-        }
-        
-        function getSupportLinksFromForm() {
-            return {
-                x: document.getElementById('xHandle').value.trim(),
-                linktree: document.getElementById('linktreeLink').value.trim(),
-                patreon: document.getElementById('patreonLink').value.trim(),
-                merch: document.getElementById('merchLink').value.trim(),
-                instagram: document.getElementById('instagramLink').value.trim()
-            };
-        }
-        
-        function renderPreview(data) {
-            document.getElementById('previewTitle').textContent = data.title;
-            
-            const sponsor = getSponsorFromForm();
-            const supportLinks = getSupportLinksFromForm();
-            
-            // Video - autoplay when page loads
-            document.getElementById('previewVideo').innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe>
-            `;
-            
-            // Slides - Sponsor first (if exists), then content cards
-            let slides = [];
-            
-            // Sponsor slide (only if sponsor exists)
-            if (sponsor && sponsor.name) {
-                slides.push(`
-                    <div class="preview-slide sponsor-slide">
-                        <div class="slide-icon">${sponsor.emoji}</div>
-                        <div class="slide-title">Sponsored by ${sponsor.name}</div>
-                        <p class="sp-msg">${sponsor.message}</p>
-                        <a href="${sponsor.link}" target="_blank">Learn More</a>
+    <!-- Section 2: Key Concepts -->
+    <div class="itab-section">
+        <div class="itab-header" onclick="toggleSection(this)">
+            <div class="itab-title">
+                <span class="itab-number">2</span>
+                <span class="itab-name">The Two Paths</span>
+                <span class="itab-badge">Learn</span>
+            </div>
+            <button class="i-button">i</button>
+        </div>
+        <div class="itab-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(this, 'consultant-2')">Consultant</button>
+                <button class="tab" onclick="showTab(this, 'builder-2')">Builder</button>
+                <button class="tab" onclick="showTab(this, 'which-2')">Which for You?</button>
+            </div>
+            <div class="tab-panel show" id="consultant-2">
+                <h3>The Consultant Path</h3>
+                <p><strong>What you do:</strong> Help businesses understand and implement AI without building custom solutions.</p>
+                <ul>
+                    <li><strong>AI Audits:</strong> Review a business's processes and identify where AI can help</li>
+                    <li><strong>Strategy Sessions:</strong> Create roadmaps for AI adoption</li>
+                    <li><strong>Tool Selection:</strong> Recommend the right AI tools for their needs</li>
+                    <li><strong>Training:</strong> Teach teams how to use AI effectively</li>
+                </ul>
+                <div class="key-point">
+                    <div class="label">💰 Typical Pricing</div>
+                    <p>AI Audits: $1,500 - $5,000 | Strategy Packages: $5,000 - $15,000</p>
+                </div>
+            </div>
+            <div class="tab-panel" id="builder-2">
+                <h3>The Builder Path</h3>
+                <p><strong>What you do:</strong> Create custom AI solutions and automations for businesses.</p>
+                <ul>
+                    <li><strong>AI Chatbots:</strong> Customer service bots, lead capture, internal knowledge bases</li>
+                    <li><strong>Workflow Automation:</strong> Connect AI to existing business processes</li>
+                    <li><strong>Custom Agents:</strong> AI systems that perform specific business tasks</li>
+                    <li><strong>Voice AI:</strong> Phone systems, appointment booking, customer support</li>
+                </ul>
+                <div class="key-point">
+                    <div class="label">💰 Typical Pricing</div>
+                    <p>Chatbots: $3,000 - $10,000 | Voice AI: $5,000 - $20,000 | Custom Agents: $10,000+</p>
+                </div>
+            </div>
+            <div class="tab-panel" id="which-2">
+                <h3>Which Path is Right for You?</h3>
+                <p><strong>Choose Consultant if:</strong></p>
+                <ul>
+                    <li>You're good at explaining complex things simply</li>
+                    <li>You have business experience or industry knowledge</li>
+                    <li>You want to start earning faster (less technical setup)</li>
+                </ul>
+                <p><strong>Choose Builder if:</strong></p>
+                <ul>
+                    <li>You enjoy technical problem-solving</li>
+                    <li>You want to create products that scale</li>
+                    <li>You're comfortable learning no-code/low-code tools</li>
+                </ul>
+                <div class="key-point">
+                    <div class="label">💡 Pro Tip</div>
+                    <p>Many people start as consultants to understand client needs, then add building services later.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 3: Tools & Resources -->
+    <div class="itab-section">
+        <div class="itab-header" onclick="toggleSection(this)">
+            <div class="itab-title">
+                <span class="itab-number">3</span>
+                <span class="itab-name">Tools & Resources</span>
+                <span class="itab-badge">Use</span>
+            </div>
+            <button class="i-button">i</button>
+        </div>
+        <div class="itab-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(this, 'tools-3')">Recommended Tools</button>
+                <button class="tab" onclick="showTab(this, 'resources-3')">Resources</button>
+            </div>
+            <div class="tab-panel show" id="tools-3">
+                <h3>Recommended Tools</h3>
+                <div class="tool-grid">
+                    <div class="tool-card">
+                        <div class="name">Claude</div>
+                        <div class="desc">AI assistant for writing, analysis, coding</div>
                     </div>
-                `);
-            }
-            
-            // Content slides
-            data.cards.forEach(card => {
-                slides.push(`
-                    <div class="preview-slide">
-                        <div class="slide-icon">${card.emoji}</div>
-                        <div class="slide-title">${card.title}</div>
-                        ${card.dos.map(d => `<div class="do-item">${d}</div>`).join('')}
-                        ${card.donts.map(d => `<div class="dont-item">${d}</div>`).join('')}
+                    <div class="tool-card">
+                        <div class="name">ChatGPT</div>
+                        <div class="desc">Versatile AI for various business tasks</div>
                     </div>
-                `);
-            });
-            
-            document.getElementById('previewTrack').innerHTML = slides.join('');
-            
-            // Dots
-            const totalSlides = slides.length;
-            document.getElementById('dotsContainer').innerHTML = Array(totalSlides).fill(0)
-                .map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>`)
-                .join('');
-            
-            currentSlide = 0;
-            updateSlidePosition();
-            
-            // Start auto-loop
-            startAutoLoop();
-        }
-        
-        let autoLoopInterval = null;
-        let userInteracted = false;
-        
-        function startAutoLoop() {
-            userInteracted = false;
-            const sponsor = getSponsorFromForm();
-            const totalSlides = cards.length + (sponsor && sponsor.name ? 1 : 0);
-            
-            autoLoopInterval = setInterval(() => {
-                if (userInteracted) {
-                    clearInterval(autoLoopInterval);
-                    return;
-                }
-                
-                if (currentSlide < totalSlides - 1) {
-                    currentSlide++;
-                    updateSlidePosition();
-                } else {
-                    // Completed one loop, stop
-                    clearInterval(autoLoopInterval);
-                }
-            }, 4000); // 4 seconds per slide
-        }
-        
-        function stopAutoLoop() {
-            userInteracted = true;
-            if (autoLoopInterval) {
-                clearInterval(autoLoopInterval);
-            }
-        }
-        
-        function goToSlide(i) {
-            stopAutoLoop();
-            currentSlide = i;
-            updateSlidePosition();
-        }
-        
-        function prevSlide() {
-            stopAutoLoop();
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlidePosition();
-            }
-        }
-        
-        function nextSlide() {
-            stopAutoLoop();
-            const sponsor = getSponsorFromForm();
-            const total = cards.length + (sponsor && sponsor.name ? 1 : 0);
-            if (currentSlide < total - 1) {
-                currentSlide++;
-                updateSlidePosition();
-            }
-        }
-        
-        function updateSlidePosition() {
-            document.getElementById('previewTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
-            document.querySelectorAll('.dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text || '';
-            return div.innerHTML;
-        }
-        
-        function generateCode(data) {
-            const sponsor = getSponsorFromForm();
-            const supportLinks = getSupportLinksFromForm();
-            
-            // Build cards array - sponsor first if exists
-            let allCards = [];
-            if (sponsor && sponsor.name) {
-                allCards.push({ type: 'sponsor', emoji: '🎁', name: sponsor.name, message: sponsor.message, link: sponsor.link });
-            }
-            allCards = allCards.concat(data.cards.map(c => ({ type: 'content', ...c })));
-            
-            // Build support links HTML
-            let supportHtml = '';
-            if (supportLinks.x) {
-                const xHandle = supportLinks.x.startsWith('@') ? supportLinks.x : '@' + supportLinks.x;
-                const xUrl = 'https://x.com/' + xHandle.replace('@', '');
-                supportHtml += `<a href="${xUrl}" target="_blank">𝕏 ${xHandle}</a>`;
-            }
-            if (supportLinks.linktree) supportHtml += `<a href="${supportLinks.linktree}" target="_blank">🔗 Linktree</a>`;
-            if (supportLinks.patreon) supportHtml += `<a href="${supportLinks.patreon}" target="_blank">❤️ Patreon</a>`;
-            if (supportLinks.merch) supportHtml += `<a href="${supportLinks.merch}" target="_blank">🛒 Merch</a>`;
-            if (supportLinks.instagram) supportHtml += `<a href="${supportLinks.instagram}" target="_blank">📸 Instagram</a>`;
-            
-            // Build sponsor popup section
-            let sponsorPopupHtml = '';
-            if (sponsor && sponsor.name) {
-                sponsorPopupHtml = `<div class="spsec"><div style="font-size:0.7em;color:#05CE78;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">🎁 Sponsor</div><p>${escapeHtml(sponsor.message)}</p><a href="${sponsor.link}" target="_blank">Learn More →</a></div>`;
-            }
-            
-            const code = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(data.title)}</title>
-<meta property="og:title" content="${escapeHtml(data.title)}">
-<meta property="og:image" content="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Poppins',sans-serif;background:#f7f8fa;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.15);max-width:420px;width:100%}.header{background:linear-gradient(135deg,#05CE78,#00a862);padding:20px 15px;color:white;text-align:center;position:relative;overflow:hidden}.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:20px 20px}.header::after{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:150%;height:100%;background:radial-gradient(ellipse at center,rgba(255,255,255,0.2) 0%,transparent 70%)}.header h1{font-size:1.1em;margin-bottom:5px;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,0.2)}.hint{font-size:0.7em;opacity:0.9;position:relative;z-index:1}.itabs-badge{display:inline-block;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.65em;margin-top:8px;position:relative;z-index:1;backdrop-filter:blur(5px)}.video iframe{width:100%;aspect-ratio:16/9;border:none;display:block}.slides-wrap{position:relative}.slides{overflow:hidden}.track{display:flex;transition:transform 0.4s}.slide{min-width:100%;padding:15px 55px}.icon{font-size:1.8em;margin-bottom:8px}.stitle{font-size:0.95em;font-weight:700;color:#1a365d;margin-bottom:10px}.do,.dont{display:flex;gap:8px;margin-bottom:6px;font-size:0.8em;color:#4a5568}.do::before{content:'✓';color:#05CE78;font-weight:bold}.dont::before{content:'✗';color:#ef4444;font-weight:bold}.nav-l,.nav-r{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.9);color:#64748b;font-size:1.2em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);z-index:10}.nav-l{left:5px}.nav-r{right:5px}.nav-l:hover,.nav-r:hover{background:#05CE78;color:white}.dots{display:flex;justify-content:center;gap:6px;padding:8px;background:#f8f9fa}.dot{width:8px;height:8px;border-radius:50%;background:#cbd5e0;cursor:pointer}.dot.active{background:#05CE78;transform:scale(1.3)}.ibtn-wrap{display:flex;justify-content:center;padding:10px 15px 12px;background:#f8f9fa}.ibtn{width:50px;height:50px;background:#05CE78;color:white;border-radius:50%;border:none;cursor:pointer;box-shadow:0 4px 15px rgba(5,206,120,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}.ibtn .il{font-size:1.3em;font-weight:700;font-style:italic}.ibtn .it{font-size:0.45em;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}.support{display:flex;justify-content:center;gap:15px;padding:10px;background:#f8f9fa;border-top:1px solid #eee}.support a{font-size:0.75em;color:#05CE78;text-decoration:none}.sponsor{text-align:center}.sponsor .sp-msg{font-size:0.85em;color:#4a5568;margin-bottom:12px}.sponsor a{display:inline-block;background:linear-gradient(135deg,#05CE78,#00a862);color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.8em}.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;padding:20px}.overlay.show{display:flex}.popup{background:white;border-radius:20px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto}.phead{padding:15px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}.phead h3{color:#1a365d}.pclose{width:32px;height:32px;background:#f1f5f9;border:none;border-radius:50%;font-size:1.2em;cursor:pointer}.pbody{padding:20px}.psec{margin-bottom:15px}.psec h4{color:#05CE78;font-size:0.9em;margin-bottom:5px}.psec p{color:#4a5568;font-size:0.85em;line-height:1.5}.spsec{background:#f0fdf4;border:2px solid #05CE78;border-radius:12px;padding:15px;margin:0 20px 15px;text-align:center}.spsec p{font-size:0.85em;color:#4a5568;margin-bottom:10px}.spsec a{color:#05CE78;font-weight:600;text-decoration:none}.pbtn{display:block;width:calc(100% - 40px);margin:0 20px 20px;padding:14px;background:linear-gradient(135deg,#05CE78,#00a862);color:white;text-align:center;text-decoration:none;border-radius:12px;font-weight:700}
-</style>
-</head>
-<body>
-<div class="card">
-<div class="header"><h1>${escapeHtml(data.title)}</h1><div class="hint">Watch & swipe through key points ↓</div><div class="itabs-badge">⚡ Powered by iTabs</div></div>
-<div class="video"><iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe></div>
-<div class="slides-wrap"><button class="nav-l" onclick="prev()">‹</button><div class="slides"><div class="track" id="track"></div></div><button class="nav-r" onclick="next()">›</button></div>
-<div class="dots" id="dots"></div>
-<div class="ibtn-wrap"><button class="ibtn" onclick="openP()"><span class="il">i</span><span class="it">iTabs</span></button></div>
-${supportHtml ? `<div class="support">${supportHtml}</div>` : ''}
+                    <div class="tool-card">
+                        <div class="name">Make.com</div>
+                        <div class="desc">No-code automation workflows</div>
+                    </div>
+                    <div class="tool-card">
+                        <div class="name">Voiceflow</div>
+                        <div class="desc">Build AI chatbots and voice agents</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-panel" id="resources-3">
+                <h3>Additional Resources</h3>
+                <p>Links to helpful materials we discussed:</p>
+                <ul>
+                    <li><span class="smart-link" onclick="showLinkPopup('ralph-guide')">Claude Code Guide (iTabs)</span> - Advanced AI coding techniques</li>
+                    <li><span class="smart-link" onclick="showLinkPopup('ai-business-guide')">AI Business 2026 Guide (iTabs)</span> - Full business strategy reference</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 4: Step-by-Step -->
+    <div class="itab-section">
+        <div class="itab-header" onclick="toggleSection(this)">
+            <div class="itab-title">
+                <span class="itab-number">4</span>
+                <span class="itab-name">Getting Your First Client</span>
+                <span class="itab-badge">Do</span>
+            </div>
+            <button class="i-button">i</button>
+        </div>
+        <div class="itab-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(this, 'steps-4')">The 9-Day Method</button>
+                <button class="tab" onclick="showTab(this, 'script-4')">Outreach Script</button>
+            </div>
+            <div class="tab-panel show" id="steps-4">
+                <h3>The 9-Day First Client Method</h3>
+                <ol>
+                    <li><strong>Day 1-2:</strong> List everyone you know - friends, family, ex-colleagues, LinkedIn connections</li>
+                    <li><strong>Day 3-4:</strong> Identify which ones own businesses or work at companies that could use AI</li>
+                    <li><strong>Day 5-6:</strong> Reach out with a simple, non-salesy message offering a free AI audit</li>
+                    <li><strong>Day 7-8:</strong> Do the audit - find 3-5 ways AI could help their specific business</li>
+                    <li><strong>Day 9:</strong> Present findings and offer to implement (paid project)</li>
+                </ol>
+                <div class="key-point">
+                    <div class="label">⚡ Why This Works</div>
+                    <p>You're offering value first (free audit) and letting them see the opportunity before asking for money.</p>
+                </div>
+            </div>
+            <div class="tab-panel" id="script-4">
+                <h3>Simple Outreach Script</h3>
+                <p>Copy and personalise this:</p>
+                <div style="background: var(--bg-dark); padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 0.95rem;">
+                    <p style="color: var(--text-primary); margin-bottom: 0;">
+                        "Hey [Name], I've been diving deep into AI for business lately and I'm doing free AI audits for people I know to build my portfolio. Basically I'd look at your business and show you where AI could save you time or money. No strings attached - would you be interested?"
+                    </p>
+                </div>
+                <p><strong>Key elements:</strong> Personal connection, offering value, no pressure, clear ask.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 5: Your Action Items -->
+    <div class="itab-section">
+        <div class="itab-header" onclick="toggleSection(this)">
+            <div class="itab-title">
+                <span class="itab-number">5</span>
+                <span class="itab-name">Your Action Items</span>
+                <span class="itab-badge">Next</span>
+            </div>
+            <button class="i-button">i</button>
+        </div>
+        <div class="itab-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(this, 'thisweek-5')">This Week</button>
+                <button class="tab" onclick="showTab(this, 'ongoing-5')">Ongoing</button>
+            </div>
+            <div class="tab-panel show" id="thisweek-5">
+                <h3>Do This Week</h3>
+                <div class="action-item">
+                    <h4>✅ Your Next Steps</h4>
+                    <ul>
+                        <li>Create your list of 20+ people in your network</li>
+                        <li>Identify the top 5 most likely to need AI help</li>
+                        <li>Send your first outreach message to at least 3 people</li>
+                        <li>Book your follow-up call with Desmond for next week</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-panel" id="ongoing-5">
+                <h3>Ongoing Habits</h3>
+                <ul>
+                    <li><strong>Daily:</strong> Spend 15 mins exploring new AI tools</li>
+                    <li><strong>Weekly:</strong> Reach out to 2-3 new potential clients</li>
+                    <li><strong>Monthly:</strong> Review and document what you've learned</li>
+                </ul>
+                <div class="key-point">
+                    <div class="label">🎯 Remember</div>
+                    <p>Consistency beats intensity. Small daily actions compound into big results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Support Section -->
+    <div class="support-box">
+        <h3>Need Help?</h3>
+        <p>Questions about anything in this guide? Reach out anytime.</p>
+        <a href="mailto:desmond@vervex.ai" class="support-link">Contact Desmond →</a>
+    </div>
+    
+    <footer>
+        <p>Prepared by <a href="https://vervex.ai" target="_blank">VerveX AI</a> • Future, Unlocked</p>
+        <p style="margin-top: 10px;">This guide was created for Sarah Mitchell following your AI Strategy session.</p>
+    </footer>
 </div>
-<div class="overlay" id="overlay" onclick="closeP(event)">
-<div class="popup" onclick="event.stopPropagation()">
-<div class="phead"><h3>About This Video</h3><button class="pclose" onclick="closeP()">×</button></div>
-<div class="pbody">
-<div class="psec"><h4>What is it?</h4><p>${escapeHtml(data.popup.what)}</p></div>
-<div class="psec"><h4>Why watch?</h4><p>${escapeHtml(data.popup.why)}</p></div>
-<div class="psec"><h4>How to use it</h4><p>${escapeHtml(data.popup.how)}</p></div>
+
+<!-- Link Preview Popup -->
+<div class="link-popup-overlay" id="linkPopup" onclick="closeLinkPopup(event)">
+    <div class="link-popup" onclick="event.stopPropagation()">
+        <div class="link-popup-header">
+            <h3 id="popupTitle">Link Preview</h3>
+            <button class="link-popup-close" onclick="closeLinkPopup()">×</button>
+        </div>
+        <div class="link-popup-body">
+            <div class="link-popup-section">
+                <div class="link-popup-label">What is this?</div>
+                <div class="link-popup-text" id="popupWhat"></div>
+            </div>
+            <div class="link-popup-section">
+                <div class="link-popup-label">Why it's useful</div>
+                <div class="link-popup-text" id="popupWhy"></div>
+            </div>
+            <div class="link-popup-section">
+                <div class="link-popup-label">URL</div>
+                <div class="link-popup-url" id="popupUrl"></div>
+            </div>
+        </div>
+        <div class="link-popup-actions">
+            <button class="link-popup-btn link-popup-btn-secondary" onclick="closeLinkPopup()">Got it</button>
+            <a class="link-popup-btn link-popup-btn-primary" id="popupOpenLink" href="#" target="_blank">Open Link →</a>
+        </div>
+    </div>
 </div>
-${sponsorPopupHtml}
-<a href="https://youtube.com/watch?v=${videoId}" class="pbtn" target="_blank">Watch Full Video</a>
-</div>
-</div>
-<div class="overlay" id="iOverlay" onclick="closeI(event)">
-<div class="popup" onclick="event.stopPropagation()">
-<div class="phead"><h3>What is iTabs?</h3><button class="pclose" onclick="closeI()">×</button></div>
-<div class="pbody">
-<div class="psec"><h4>✨ Info at the point of confusion</h4><p>iTabs turns content into interactive cards. Watch videos while swiping through key points.</p></div>
-<div class="psec"><h4>🚀 Make your own</h4><p>Create iTabs for YouTube videos, products, or anything that needs explaining.</p></div>
-</div>
-<a href="https://itabs.ai" class="pbtn" target="_blank">Try iTabs Free</a>
-</div>
-</div>
+
 <script>
-const cards=${JSON.stringify(allCards)};let cur=0;let looping=true;let loopInt;
-function render(){document.getElementById('track').innerHTML=cards.map(c=>c.type==='sponsor'?'<div class="slide sponsor"><div class="icon">'+c.emoji+'</div><div class="stitle">Sponsored by '+c.name+'</div><p class="sp-msg">'+c.message+'</p><a href="'+c.link+'" target="_blank">Try Framer Free</a></div>':'<div class="slide"><div class="icon">'+c.emoji+'</div><div class="stitle">'+c.title+'</div>'+c.dos.map(d=>'<div class="do">'+d+'</div>').join('')+c.donts.map(d=>'<div class="dont">'+d+'</div>').join('')+'</div>').join('');document.getElementById('dots').innerHTML=cards.map((_,i)=>'<div class="dot'+(i===cur?' active':'')+'" onclick="go('+i+')"></div>').join('');document.getElementById('track').style.transform='translateX(-'+cur*100+'%)';}
-function stopLoop(){looping=false;clearInterval(loopInt);}
-function go(i){stopLoop();cur=i;render()}function prev(){stopLoop();if(cur>0){cur--;render()}}function next(){stopLoop();if(cur<cards.length-1){cur++;render()}}
-function openP(){document.getElementById('overlay').classList.add('show')}function closeP(e){if(!e||e.target.id==='overlay')document.getElementById('overlay').classList.remove('show')}
-function openI(){document.getElementById('iOverlay').classList.add('show')}function closeI(e){if(!e||e.target.id==='iOverlay')document.getElementById('iOverlay').classList.remove('show')}
-let sx=0;document.querySelector('.slides').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;stopLoop();});document.querySelector('.slides').addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50){if(d>0&&cur<cards.length-1)cur++;else if(d<0&&cur>0)cur--;render()}});
-render();loopInt=setInterval(()=>{if(!looping)return;if(cur<cards.length-1){cur++;render();}else{stopLoop();}},4000);
-<\/script>
-</body>
-</html>`;
-            
-            document.getElementById('codeOutput').textContent = code;
+    const linkData = {
+        'ralph-guide': {
+            title: "Claude Code Guide (iTabs)",
+            what: "Advanced guide covering the Ralph Loop plugin for autonomous AI coding. Includes setup instructions, real-world examples, and troubleshooting tips.",
+            why: "Great resource if you want to explore AI-assisted coding or understand how AI agents work under the hood.",
+            url: "https://boilermaker-innovator.github.io/itabs-Ralph-Claude-5/"
+        },
+        'ai-business-guide': {
+            title: "AI Business 2026 Guide (iTabs)",
+            what: "Complete reference guide based on data from 270,000+ AI business community members. Covers what's selling, pricing, and how to get clients.",
+            why: "Bookmark this for when you need specific numbers or want to review the full business strategy we discussed.",
+            url: "https://boilermaker-innovator.github.io/iTabs-test-des/"
         }
-        
-        function copyCode() {
-            const code = document.getElementById('codeOutput').textContent;
-            const btn = document.getElementById('copyBtn');
-            
-            // Try modern clipboard API first
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(code).then(() => {
-                    btn.textContent = '✓ Copied!';
-                    btn.classList.add('copied');
-                    setTimeout(() => {
-                        btn.textContent = '📋 Copy HTML Code';
-                        btn.classList.remove('copied');
-                    }, 2000);
-                }).catch(() => {
-                    fallbackCopy(code, btn);
-                });
-            } else {
-                fallbackCopy(code, btn);
-            }
-        }
-        
-        function fallbackCopy(text, btn) {
-            // Fallback for older browsers or file:// protocol
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.left = '-9999px';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                btn.textContent = '✓ Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.textContent = '📋 Copy HTML Code';
-                    btn.classList.remove('copied');
-                }, 2000);
-            } catch (err) {
-                alert('Copy failed - please select the code manually and copy');
-            }
-            document.body.removeChild(textarea);
-        }
-        
-        // Swipe support for preview
-        let touchStartX = 0;
-        document.addEventListener('touchstart', e => {
-            if (e.target.closest('.preview-slides')) {
-                touchStartX = e.touches[0].clientX;
-            }
-        });
-        
-        document.addEventListener('touchend', e => {
-            if (e.target.closest('.preview-slides')) {
-                const diff = touchStartX - e.changedTouches[0].clientX;
-                const total = cards.length + 1;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0 && currentSlide < total - 1) currentSlide++;
-                    else if (diff < 0 && currentSlide > 0) currentSlide--;
-                    updateSlidePosition();
-                }
-            }
-        });
-    </script>
+    };
+    
+    function toggleSection(header) {
+        const content = header.nextElementSibling;
+        const button = header.querySelector('.i-button');
+        content.classList.toggle('show');
+        button.classList.toggle('active');
+    }
+    
+    function showTab(tabButton, panelId) {
+        const container = tabButton.closest('.itab-content');
+        container.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        container.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('show'));
+        tabButton.classList.add('active');
+        document.getElementById(panelId).classList.add('show');
+    }
+    
+    function showLinkPopup(linkId) {
+        const data = linkData[linkId];
+        if (!data) return;
+        document.getElementById('popupTitle').textContent = data.title;
+        document.getElementById('popupWhat').textContent = data.what;
+        document.getElementById('popupWhy').textContent = data.why;
+        document.getElementById('popupUrl').textContent = data.url;
+        document.getElementById('popupOpenLink').href = data.url;
+        document.getElementById('linkPopup').classList.add('show');
+    }
+    
+    function closeLinkPopup(event) {
+        if (event && event.target !== event.currentTarget) return;
+        document.getElementById('linkPopup').classList.remove('show');
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstHeader = document.querySelector('.itab-header');
+        if (firstHeader) toggleSection(firstHeader);
+    });
+</script>
+```
+
 </body>
 </html>
