@@ -108,7 +108,7 @@
 /* ══ WIDGET OVERLAY + PANEL ══ */
     #widget-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:950;backdrop-filter:blur(3px)}
     #widget-overlay.show{display:block}
-    #widget-panel{width:100%;max-width:480px;margin:0 auto;background:var(--w-bg);min-height:100vh;display:flex;flex-direction:column}
+    #widget-panel{width:100%;max-width:480px;margin:0 auto;background:var(--w-bg);min-height:100vh;display:flex;flex-direction:column;border:2px solid #e8e4dd;box-shadow:0 4px 24px rgba(0,0,0,0.12)}
     
     
 
@@ -155,12 +155,13 @@
     /* Fields */
     .field-group{margin-bottom:12px}
     .field-label{font-weight:600;font-size:.82rem;margin-bottom:5px;display:flex;align-items:center;gap:4px;color:var(--w-dark)}
-    .info-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(44,122,123,.12);color:var(--w-info);font-size:.65rem;font-weight:700;border:none;cursor:pointer}
-    select,input[type="number"],input[type="text"],input[type="email"],input[type="tel"]{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:white;color:#333}
+    .info-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:transparent;color:var(--w-info);font-size:.65rem;font-weight:700;border:1.5px solid var(--w-info);cursor:pointer}
+    select,input[type="number"],input[type="text"],input[type="email"],input[type="tel"]{width:100%;padding:9px 11px;border:1.5px solid #d0cbc3;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:white;color:#333}
+    select:focus,input:focus{outline:none;border-color:var(--w-primary)}
     .slider-row{display:flex;align-items:center;gap:10px}
     .slider-row input[type="range"]{flex:1;accent-color:var(--w-primary)}
     .slider-value{font-weight:700;font-size:.95rem;min-width:45px;text-align:right;color:var(--w-dark)}
-    .btn-next{width:100%;padding:13px;border:none;border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:6px;transition:opacity .2s}
+    .btn-next{width:100%;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:6px;transition:opacity .2s}
     .btn-next:hover{opacity:.9}
 
     /* Alerts */
@@ -190,7 +191,7 @@
     .timeline-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
     .timeline-btn{padding:7px 12px;border:2px solid #ddd;border-radius:20px;background:white;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;color:#555}
     .timeline-btn.active{border-color:var(--w-primary);background:rgba(232,93,4,.06);color:var(--w-primary)}
-    .btn-submit{width:100%;padding:13px;border:none;border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:opacity .2s}
+    .btn-submit{width:100%;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:opacity .2s}
     .btn-submit:hover{opacity:.9}
 
     /* Breakdown */
@@ -207,7 +208,7 @@
     .w-cta h3{font-family:'Instrument Serif',serif;color:white;font-size:1.05rem;margin-bottom:4px}
     .w-cta p{color:rgba(255,255,255,.6);font-size:.78rem;margin-bottom:12px}
     .w-cta-btns{display:flex;gap:8px}
-    .btn-call{flex:1;padding:13px;border:none;border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;text-align:center;display:block}
+    .btn-call{flex:1;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;text-align:center;display:block}
     .btn-enquire{flex:1;padding:13px;border:2px solid rgba(255,255,255,.25);border-radius:8px;background:transparent;color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;text-align:center;display:block}
     .disclaimer{font-size:.7rem;color:#999;text-align:center;margin-top:10px;line-height:1.5}
     .wp-footer{text-align:center;padding:12px;font-size:.7rem;color:#bbb;flex-shrink:0}
@@ -235,7 +236,7 @@
     <div style="position:absolute;inset:0;padding:18px 16px;display:flex;flex-direction:column;justify-content:flex-end;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;color:white;line-height:1;">JARRAH<span style="color:#e85d04">.</span></div>
-        <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:#e85d04;color:white;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.3);">i</button>
+        <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:transparent;color:white;font-size:0.78rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">i</button>
       </div>
       <div style="font-size:0.78rem;color:rgba(255,255,255,0.75);margin-top:3px;">Colorbond · Timber · Pool Fencing · Perth Metro</div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
@@ -270,7 +271,7 @@
 
           <div id="wopt-colorbond" onclick="selectFence('colorbond',this)" style="position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .2s;aspect-ratio:4/3;">
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70" style="width:100%;height:100%;object-fit:cover;display:block;">            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.1) 60%);"></div>
-            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('fenceType')" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.9);color:#333;font-size:0.65rem;font-weight:700;border:none;cursor:pointer;">i</button></div>
+            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('fenceType')" style="width:22px;height:22px;border-radius:50%;background:transparent;color:white;font-size:0.65rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;">i</button></div>
             <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;">
               <div style="color:white;font-weight:700;font-size:0.82rem;line-height:1.2;">Colorbond</div>
               <div style="color:rgba(255,255,255,0.75);font-size:0.68rem;">$95–$130/m</div>
@@ -281,7 +282,7 @@
           <div id="wopt-timber" onclick="selectFence('timber',this)" style="position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .2s;aspect-ratio:4/3;">
             <img src="https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=400&q=70" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.1) 60%);"></div>
-            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('timberInfo')" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.9);color:#333;font-size:0.65rem;font-weight:700;border:none;cursor:pointer;">i</button></div>
+            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('timberInfo')" style="width:22px;height:22px;border-radius:50%;background:transparent;color:white;font-size:0.65rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;">i</button></div>
             <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;">
               <div style="color:white;font-weight:700;font-size:0.82rem;line-height:1.2;">Timber</div>
               <div style="color:rgba(255,255,255,0.75);font-size:0.68rem;">$85–$120/m</div>
@@ -291,7 +292,7 @@
           <div id="wopt-aluminium" onclick="selectFence('aluminium',this)" style="position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .2s;aspect-ratio:4/3;">
             <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=70" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.1) 60%);"></div>
-            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('alumInfo')" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.9);color:#333;font-size:0.65rem;font-weight:700;border:none;cursor:pointer;">i</button></div>
+            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('alumInfo')" style="width:22px;height:22px;border-radius:50%;background:transparent;color:white;font-size:0.65rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;">i</button></div>
             <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;">
               <div style="color:white;font-weight:700;font-size:0.82rem;line-height:1.2;">Aluminium Slat</div>
               <div style="color:rgba(255,255,255,0.75);font-size:0.68rem;">$150–$220/m</div>
@@ -301,7 +302,7 @@
           <div id="wopt-pool" onclick="selectFence('pool',this)" style="position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .2s;aspect-ratio:4/3;">
             <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=400&q=70" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.1) 60%);"></div>
-            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('poolInfo')" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.9);color:#333;font-size:0.65rem;font-weight:700;border:none;cursor:pointer;">i</button></div>
+            <div style="position:absolute;top:6px;right:6px;"><button onclick="event.stopPropagation();openModal('poolInfo')" style="width:22px;height:22px;border-radius:50%;background:transparent;color:white;font-size:0.65rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;">i</button></div>
             <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;">
               <div style="color:white;font-weight:700;font-size:0.82rem;line-height:1.2;">Pool Fencing</div>
               <div style="color:rgba(255,255,255,0.75);font-size:0.68rem;">$180–$350/m</div>
@@ -458,7 +459,7 @@
   <div class="wp-footer" style="display:flex;align-items:center;justify-content:center;gap:6px;">
     <span>Powered by</span>
     <a href="https://itabs.ai" target="_blank" style="color:#bbb;">iTabs</a>
-    <button onclick="openModal('itabsInfo')" style="width:24px;height:24px;border-radius:50%;background:#e85d04;color:white;font-size:0.72rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
+    <button onclick="openModal('itabsInfo')" style="width:24px;height:24px;border-radius:50%;background:transparent;color:#e85d04;font-size:0.72rem;font-weight:700;border:1.5px solid #e85d04;cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
   </div>
 </div><!-- /widget-panel -->
 
@@ -501,7 +502,7 @@
     timberInfo:{title:'Timber Fencing',content:'<p><strong>Natural look, suits heritage areas and gardens.</strong> Treated pine lasts 15–20 years, hardwood up to 25. Needs oiling or staining every 2–3 years in Perth\'s harsh UV.</p><p>Best for: older suburbs, garden privacy, natural aesthetic. Not recommended in high coastal exposure areas.</p>'},
     alumInfo:{title:'Aluminium Slat Fencing',content:'<p><strong>Modern, low maintenance, won\'t rust or rot.</strong> Great near pools and coastal areas. More expensive upfront but zero ongoing maintenance cost.</p><p>Powder-coated finish comes in dozens of colours. Lasts 25+ years. Best for contemporary homes and coastal properties.</p>'},
     poolInfo:{title:'Pool Fencing',content:'<p><strong>Legally required around all pools in WA.</strong> Must comply with AS1926.1.</p><p><strong>Glass panel</strong> — frameless or semi-frameless. Premium look, unobstructed views. $250–$450/m.</p><p><strong>Aluminium tubular</strong> — powder-coated, lower cost, highly durable. $180–$280/m.</p><p>Certified inspection required after install. We handle all compliance documentation and council sign-off.</p>'},
-      title:'About Jarrah Fencing Perth',
+    bizInfo:{title:'About Jarrah Fencing Perth',
       content:'<p><strong>Family run since 2012.</strong> We\'ve built over 2,400 fences across Perth metro — from Joondalup to Mandurah.</p><p>⭐⭐⭐⭐⭐ <em>"Turned up on time, cleaned up after themselves, and the fence looks absolutely brilliant."</em> — Sarah, Stirling</p><p>⭐⭐⭐⭐⭐ <em>"Fixed our old Colorbond and it looks brand new. Fair price, no dramas."</em> — Mark, Rockingham</p><p>All work backed by our 5-year labour warranty. Free measure and quote — no obligation.</p><p><a href="https://jarrahfencing.com.au" style="color:#e85d04;">Visit our website →</a></p>'
     },
     itabsInfo:{
