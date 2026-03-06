@@ -18,8 +18,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black:#0e0e0e;--charcoal:#1a1a1a;--steel:#2c2c2c;
-      --orange:#e85d04;--orange-light:#ff7a1f;--white:#fff;
       --w-bg:#F5F1EB;--w-card:#FEFCF8;--w-dark:#1a1a1a;
       --w-primary:#e85d04;--w-secondary:#C2874D;--w-sand:#F5F1EB;
       --w-slate:#555;--w-danger:#C0392B;--w-warn:#D4840A;--w-info:#2C7A7B;
@@ -35,9 +33,11 @@
     .wp-progress{display:flex;gap:6px;margin-bottom:10px}
     .wp-dot{flex:1;height:4px;border-radius:2px;background:#ddd;transition:background .3s}
     .wp-dot.active{background:var(--w-primary)}
+    /* LIVE TICKER */
     #live-ticker{display:none;text-align:center;margin-bottom:14px;padding:10px 14px;background:var(--w-card);border-radius:10px;border:1px solid #e8e4dd;animation:fadeIn .3s ease}
     #live-ticker .ticker-label{font-size:.7rem;color:var(--w-slate);letter-spacing:.5px;text-transform:uppercase}
     #live-ticker .ticker-value{font-family:'Instrument Serif',serif;font-size:1.3rem;color:var(--w-primary);margin-top:1px}
+    /* Step cards */
     .step-card{background:var(--w-card);border-radius:var(--w-radius);box-shadow:var(--w-shadow);margin-bottom:10px;overflow:hidden;border:1px solid #e8e4dd}
     .step-header{display:flex;align-items:center;padding:14px;cursor:pointer;gap:10px}
     .step-num{width:30px;height:30px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0;transition:all .3s}
@@ -46,18 +46,21 @@
     .step-sum{margin-left:auto;font-size:.78rem;color:var(--w-slate);white-space:nowrap}
     .step-body{display:none;padding:0 14px 14px}
     .step-card.active .step-body{display:block}
-    .sub-options{margin-top:6px}
-    .sub-option{display:flex;align-items:center;padding:11px 12px;border:2px solid #e8e4dd;border-radius:10px;margin-bottom:8px;cursor:pointer;gap:10px;transition:border-color .2s,background .2s}
-    .sub-option:hover{border-color:var(--w-secondary)}
-    .sub-option.selected{border-color:var(--w-primary);background:rgba(232,93,4,.06)}
-    .sub-option.bounce{animation:cardBounce .35s ease}
-    .sub-radio{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
-    .sub-option.selected .sub-radio{border-color:var(--w-primary)}
-    .sub-option.selected .sub-radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--w-primary);display:block}
-    .sub-icon{font-size:1.4rem;flex-shrink:0}
-    .sub-name{font-weight:600;font-size:.88rem;color:var(--w-dark)}
-    .sub-desc{font-size:.75rem;color:var(--w-slate);margin-top:2px}
-    .sub-tag{display:inline-block;background:var(--w-primary);color:white;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:4px}
+    /* PHOTO FENCE TYPE CARDS */
+    .fence-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+    .fence-card{border:3px solid #e8e4dd;border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;position:relative;background:#f0ede8}
+    .fence-card:hover{border-color:var(--w-secondary);transform:translateY(-1px)}
+    .fence-card.selected{border-color:var(--w-primary);box-shadow:0 0 0 2px rgba(232,93,4,0.2)}
+    .fence-card.bounce{animation:cardBounce .35s ease}
+    .fence-photo{width:100%;height:90px;object-fit:cover;display:block;background:#d0cbc3}
+    .fence-photo-placeholder{width:100%;height:90px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:linear-gradient(135deg,#d8d0c4,#c8bfb0)}
+    .fence-info{padding:9px 10px 10px}
+    .fence-name{font-weight:700;font-size:.82rem;color:var(--w-dark);line-height:1.2}
+    .fence-price{font-size:.7rem;color:var(--w-slate);margin-top:2px}
+    .fence-tag{display:inline-block;background:var(--w-primary);color:white;font-size:.58rem;font-weight:700;padding:2px 6px;border-radius:10px;margin-top:4px}
+    .fence-check{position:absolute;top:7px;right:7px;width:22px;height:22px;border-radius:50%;background:var(--w-primary);color:white;display:none;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.3)}
+    .fence-card.selected .fence-check{display:flex}
+    /* Fields */
     .field-group{margin-bottom:12px}
     .field-label{font-weight:600;font-size:.82rem;margin-bottom:5px;display:flex;align-items:center;gap:4px;color:var(--w-dark)}
     .info-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:transparent;color:var(--w-info);font-size:.65rem;font-weight:700;border:1.5px solid var(--w-info);cursor:pointer}
@@ -65,10 +68,12 @@
     select:focus,input:focus{outline:none;border-color:var(--w-primary)}
     .btn-next{width:100%;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:6px;transition:opacity .2s}
     .btn-next:hover{opacity:.9}
+    /* Alerts */
     .alert{padding:9px 11px;border-radius:8px;font-size:.8rem;margin-bottom:8px;line-height:1.5}
     .alert-danger{background:#FDEDEC;border-left:3px solid var(--w-danger);color:#7B241C}
     .alert-warn{background:#FEF5E7;border-left:3px solid var(--w-warn);color:#7D6608}
     .alert-info{background:#E8F8F5;border-left:3px solid var(--w-info);color:#1A5276}
+    /* Chart */
     .chart-title{font-size:.88rem;font-weight:600;margin-bottom:10px;color:var(--w-dark);display:flex;align-items:center;gap:4px}
     .bar-row{display:flex;align-items:center;margin-bottom:8px;gap:8px}
     .bar-label{width:88px;font-size:.75rem;font-weight:500;text-align:right;flex-shrink:0;color:var(--w-dark)}
@@ -76,6 +81,7 @@
     .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:.7rem;font-weight:700;color:white;transition:width .5s ease;white-space:nowrap}
     .bar-row.hl .bar-label{font-weight:700}
     .bar-row.hl .bar-fill{box-shadow:0 0 0 2px var(--w-primary),0 0 0 4px rgba(0,0,0,.08)}
+    /* Lead gate */
     .lead-gate{background:var(--w-card);border:2px dashed var(--w-secondary);border-radius:var(--w-radius);padding:18px 14px;text-align:center;margin:14px 0}
     .lead-gate h3{font-family:'Instrument Serif',serif;font-size:1.05rem;margin-bottom:4px;color:var(--w-dark)}
     .lead-gate p{font-size:.78rem;color:var(--w-slate);margin-bottom:12px}
@@ -87,8 +93,8 @@
     .timeline-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
     .timeline-btn{padding:7px 12px;border:2px solid #ddd;border-radius:20px;background:white;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;color:#555}
     .timeline-btn.active{border-color:var(--w-primary);background:rgba(232,93,4,.06);color:var(--w-primary)}
-    .btn-submit{width:100%;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:opacity .2s}
-    .btn-submit:hover{opacity:.9}
+    .btn-submit{width:100%;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer}
+    /* Breakdown */
     .breakdown{display:none}
     .breakdown.visible{display:block}
     .breakdown h3{font-family:'Instrument Serif',serif;margin-bottom:12px;color:var(--w-dark)}
@@ -100,24 +106,50 @@
     .w-cta h3{font-family:'Instrument Serif',serif;color:white;font-size:1.05rem;margin-bottom:4px}
     .w-cta p{color:rgba(255,255,255,.6);font-size:.78rem;margin-bottom:12px}
     .w-cta-btns{display:flex;gap:8px}
-    .btn-call{flex:1;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;text-align:center;display:block}
+    .btn-call{flex:1;padding:13px;border:2px solid var(--w-primary);border-radius:8px;background:var(--w-primary);color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;text-align:center;display:block}
     .btn-enquire{flex:1;padding:13px;border:2px solid rgba(255,255,255,.25);border-radius:8px;background:transparent;color:white;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;text-align:center;display:block}
     .disclaimer{font-size:.7rem;color:#999;text-align:center;margin-top:10px;line-height:1.5}
     .wp-footer{text-align:center;padding:12px;font-size:.7rem;color:#bbb;flex-shrink:0}
     .wp-footer a{color:#bbb}
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1100;align-items:flex-end;justify-content:center}
+    /* INFO MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1100;align-items:flex-end;justify-content:center}
     .modal-overlay.open{display:flex}
-    .modal-sheet{background:white;width:100%;max-width:420px;max-height:70vh;border-radius:16px 16px 0 0;overflow-y:auto;padding:8px 20px 32px}
+    .modal-sheet{background:white;width:100%;max-width:480px;max-height:72vh;border-radius:16px 16px 0 0;overflow-y:auto;padding:8px 20px 32px}
     .modal-handle{width:40px;height:4px;background:#ddd;border-radius:2px;margin:8px auto 16px}
     .modal-sheet h3{font-family:'Instrument Serif',serif;font-size:1.05rem;margin-bottom:10px;color:var(--w-dark)}
     .modal-sheet p{font-size:.83rem;line-height:1.7;color:#444;margin-bottom:8px}
     .modal-sheet strong{color:var(--w-dark)}
+    /* GALLERY MODAL */
+    #gallery-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1200;align-items:center;justify-content:center;flex-direction:column}
+    #gallery-overlay.open{display:flex}
+    .gallery-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:white;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .gallery-counter{position:absolute;top:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.78rem;font-weight:600}
+    .gallery-main{width:100%;max-width:480px;padding:0 52px;position:relative}
+    .gallery-img-wrap{width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#222;position:relative}
+    .gallery-img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s}
+    .gallery-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:rgba(255,255,255,.35)}
+    .gallery-img-placeholder .big-icon{font-size:3rem}
+    .gallery-img-placeholder .caption{font-size:.78rem;text-align:center;padding:0 20px;line-height:1.5}
+    .gallery-caption{text-align:center;color:rgba(255,255,255,.7);font-size:.82rem;margin-top:12px;min-height:20px;padding:0 8px}
+    .gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:white;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .gallery-nav:hover{background:rgba(255,255,255,.28)}
+    .gallery-prev{left:6px}
+    .gallery-next{right:6px}
+    .gallery-dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+    .gallery-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:background .2s;padding:0}
+    .gallery-dot.active{background:var(--w-primary)}
+    .gallery-label-strip{display:flex;gap:8px;overflow-x:auto;padding:14px 52px 0;scrollbar-width:none;max-width:480px;width:100%}
+    .gallery-label-strip::-webkit-scrollbar{display:none}
+    .gallery-label-btn{flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.55);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .gallery-label-btn.active{border-color:var(--w-primary);color:var(--w-primary);background:rgba(232,93,4,.12)}
+    /* STICKY STRIP */
     #sticky-strip{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--w-dark);color:white;padding:10px 16px;z-index:500;align-items:center;justify-content:space-between;border-top:2px solid var(--w-primary);box-shadow:0 -4px 20px rgba(0,0,0,0.25)}
     #sticky-strip.show{display:flex}
     #sticky-strip .ss-label{font-size:.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
     #sticky-strip .ss-value{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--w-primary)}
     #sticky-strip .ss-btn{background:var(--w-primary);border:none;color:white;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;padding:8px 14px;border-radius:6px;cursor:pointer;white-space:nowrap}
-    @keyframes cardBounce{0%{transform:scale(1)}40%{transform:scale(1.04)}70%{transform:scale(0.98)}100%{transform:scale(1)}}
+    /* Animations */
+    @keyframes cardBounce{0%{transform:scale(1)}40%{transform:scale(1.03)}70%{transform:scale(0.98)}100%{transform:scale(1)}}
     @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
@@ -125,19 +157,26 @@
 
 <div id="widget-panel">
 
-  <div style="position:relative;height:160px;overflow:hidden;flex-shrink:0;">
+  <!-- HERO HEADER -->
+  <div style="position:relative;height:168px;overflow:hidden;flex-shrink:0;">
     <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e2d 0%,#4a6741 50%,#3d5c3a 100%);"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,14,14,0.75) 0%,rgba(14,14,14,0.3) 100%);"></div>
-    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,0.15);font-size:0.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;">[ BUSINESS PHOTO GOES HERE ]</div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,14,14,0.78) 0%,rgba(14,14,14,0.28) 100%);"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,0.12);font-size:0.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;">[ BUSINESS PHOTO GOES HERE ]</div>
     <div style="position:absolute;inset:0;padding:18px 16px;display:flex;flex-direction:column;justify-content:flex-end;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;color:white;line-height:1;">JARRAH<span style="color:#e85d04">.</span></div>
-        <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:transparent;color:white;font-size:0.78rem;font-weight:700;border:1.5px solid rgba(255,255,255,0.8);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">i</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;color:white;line-height:1;">JARRAH<span style="color:#e85d04">.</span></div>
+          <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:transparent;color:white;font-size:.78rem;font-weight:700;border:1.5px solid rgba(255,255,255,.8);cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
+        </div>
+        <!-- VIEW OUR WORK BUTTON -->
+        <button onclick="openGallery(0)" style="display:flex;align-items:center;gap:6px;background:rgba(232,93,4,0.85);border:none;color:white;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:7px 12px;border-radius:20px;cursor:pointer;letter-spacing:.3px;">
+          <span style="font-size:1rem;">&#128247;</span> Our Work
+        </button>
       </div>
-      <div style="font-size:0.78rem;color:rgba(255,255,255,0.75);margin-top:3px;">Colorbond &middot; Timber &middot; Pool Fencing &middot; Perth Metro</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-        <div style="background:rgba(232,93,4,0.9);color:white;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.5px;">4.8&#9733; GOOGLE</div>
-        <div style="font-size:0.7rem;color:rgba(255,255,255,0.55);">Serving Perth since 2012</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.7);margin-top:4px;">Colorbond &middot; Timber &middot; Pool Fencing &middot; Perth Metro</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+        <div style="background:rgba(232,93,4,.9);color:white;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.5px;">4.8&#9733; GOOGLE</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.5);">Perth since 2012 &middot; 2,400+ fences</div>
       </div>
     </div>
   </div>
@@ -147,7 +186,7 @@
     <p class="wp-sub">Free estimate in 60 seconds &middot; Perth metro &amp; surrounds</p>
 
     <div class="wp-progress" id="wp-progress">
-      <div class="wp-dot active"></div><div class="wp-dot"></div><div class="wp-dot"></div><div class="wp-dot"></div>
+      <div class="wp-dot"></div><div class="wp-dot"></div><div class="wp-dot"></div><div class="wp-dot"></div>
     </div>
 
     <div id="live-ticker">
@@ -155,7 +194,8 @@
       <div class="ticker-value" id="ticker-val">~$0</div>
     </div>
 
-    <div class="step-card active" id="wstep1">
+    <!-- STEP 1: PHOTO FENCE TYPE SELECTION -->
+    <div class="step-card" id="wstep1">
       <div class="step-header" onclick="goStep(1)">
         <div class="step-num" id="wnum1">1</div>
         <div class="step-title-txt">Fence Type</div>
@@ -163,27 +203,55 @@
       </div>
       <div class="step-body">
         <div class="field-label">Choose your fence type <button class="info-btn" onclick="openModal('fenceType')">i</button></div>
-        <div class="sub-options">
-          <div class="sub-option selected" id="wopt-colorbond" onclick="selectFence('colorbond',this)">
-            <div class="sub-radio"></div><div class="sub-icon">&#127968;</div>
-            <div><div class="sub-name">Colorbond Steel</div><div class="sub-desc">Perth's #1 choice &middot; Low maintenance &middot; $95&ndash;$130/m</div><span class="sub-tag">Most Popular</span></div>
+        <div class="fence-grid">
+
+          <div class="fence-card selected" id="wopt-colorbond" onclick="selectFence('colorbond',this)">
+            <div class="fence-check">&#10003;</div>
+            <img class="fence-photo" src="https://images.unsplash.com/photo-1591955506264-3f5a6834570a?w=400&h=180&fit=crop&q=75" alt="Colorbond fence" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="fence-photo-placeholder" style="display:none;">&#127968;</div>
+            <div class="fence-info">
+              <div class="fence-name">Colorbond Steel</div>
+              <div class="fence-price">$95–$130/m</div>
+              <div class="fence-tag">Most Popular</div>
+            </div>
           </div>
-          <div class="sub-option" id="wopt-timber" onclick="selectFence('timber',this)">
-            <div class="sub-radio"></div><div class="sub-icon">&#127807;</div>
-            <div><div class="sub-name">Timber</div><div class="sub-desc">Natural look &middot; Treated pine or hardwood &middot; $85&ndash;$120/m</div></div>
+
+          <div class="fence-card" id="wopt-timber" onclick="selectFence('timber',this)">
+            <div class="fence-check">&#10003;</div>
+            <img class="fence-photo" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=180&fit=crop&q=75" alt="Timber fence" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="fence-photo-placeholder" style="display:none;">&#127807;</div>
+            <div class="fence-info">
+              <div class="fence-name">Timber</div>
+              <div class="fence-price">$85–$120/m</div>
+            </div>
           </div>
-          <div class="sub-option" id="wopt-aluminium" onclick="selectFence('aluminium',this)">
-            <div class="sub-radio"></div><div class="sub-icon">&#10024;</div>
-            <div><div class="sub-name">Aluminium Slat</div><div class="sub-desc">Modern &middot; Won't rust or rot &middot; $150&ndash;$220/m</div></div>
+
+          <div class="fence-card" id="wopt-aluminium" onclick="selectFence('aluminium',this)">
+            <div class="fence-check">&#10003;</div>
+            <img class="fence-photo" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=180&fit=crop&q=75" alt="Aluminium slat fence" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="fence-photo-placeholder" style="display:none;">&#10024;</div>
+            <div class="fence-info">
+              <div class="fence-name">Aluminium Slat</div>
+              <div class="fence-price">$150–$220/m</div>
+            </div>
           </div>
-          <div class="sub-option" id="wopt-pool" onclick="selectFence('pool',this)">
-            <div class="sub-radio"></div><div class="sub-icon">&#127946;</div>
-            <div><div class="sub-name">Pool Fencing</div><div class="sub-desc">Glass or aluminium &middot; AS1926.1 certified &middot; $180&ndash;$350/m</div><span class="sub-tag">Compliance Required</span></div>
+
+          <div class="fence-card" id="wopt-pool" onclick="selectFence('pool',this)">
+            <div class="fence-check">&#10003;</div>
+            <img class="fence-photo" src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=400&h=180&fit=crop&q=75" alt="Pool fencing" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="fence-photo-placeholder" style="display:none;">&#127946;</div>
+            <div class="fence-info">
+              <div class="fence-name">Pool Fencing</div>
+              <div class="fence-price">$180–$350/m</div>
+              <div class="fence-tag">Compliance Req.</div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
 
+    <!-- STEP 2 -->
     <div class="step-card" id="wstep2">
       <div class="step-header" onclick="goStep(2)">
         <div class="step-num" id="wnum2">2</div>
@@ -194,12 +262,12 @@
         <div class="field-group">
           <div class="field-label">Fence sections <button class="info-btn" onclick="openModal('length')">i</button></div>
           <div id="runs-container"></div>
-          <button onclick="addRun()" style="display:flex;align-items:center;gap:6px;background:transparent;border:2px dashed #ddd;border-radius:8px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;color:var(--w-slate);cursor:pointer;margin-top:4px;width:100%;justify-content:center;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--w-primary)'" onmouseout="this.style.borderColor='#ddd'">
+          <button onclick="addRun()" style="display:flex;align-items:center;gap:6px;background:transparent;border:2px dashed #ddd;border-radius:8px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;color:var(--w-slate);cursor:pointer;margin-top:4px;width:100%;justify-content:center;" onmouseover="this.style.borderColor='var(--w-primary)'" onmouseout="this.style.borderColor='#ddd'">
             <span style="font-size:1.1rem;line-height:1">+</span> Add another section
           </button>
-          <div style="margin-top:10px;padding:8px 12px;background:#f0f0f0;border-radius:8px;font-size:0.8rem;color:var(--w-slate);display:flex;justify-content:space-between;align-items:center;">
+          <div style="margin-top:10px;padding:8px 12px;background:#f0f0f0;border-radius:8px;font-size:.8rem;color:var(--w-slate);display:flex;justify-content:space-between;align-items:center;">
             <span>Total length</span>
-            <strong id="total-length-display" style="color:var(--w-dark);font-size:0.95rem;">20m</strong>
+            <strong id="total-length-display" style="color:var(--w-dark);font-size:.95rem;">20m</strong>
           </div>
         </div>
         <div class="field-group">
@@ -215,6 +283,7 @@
       </div>
     </div>
 
+    <!-- STEP 3 -->
     <div class="step-card" id="wstep3">
       <div class="step-header" onclick="goStep(3)">
         <div class="step-num" id="wnum3">3</div>
@@ -256,6 +325,7 @@
       </div>
     </div>
 
+    <!-- STEP 4 -->
     <div class="step-card" id="wstep4">
       <div class="step-header" onclick="goStep(4)">
         <div class="step-num" id="wnum4">4</div>
@@ -316,13 +386,15 @@
     </div>
 
   </div>
+
   <div class="wp-footer" style="display:flex;align-items:center;justify-content:center;gap:6px;">
     <span>Powered by</span>
-    <a href="https://itabs.ai" target="_blank" style="color:#bbb;">iTabs</a>
-    <button onclick="openModal('itabsInfo')" style="width:24px;height:24px;border-radius:50%;background:transparent;color:#e85d04;font-size:0.72rem;font-weight:700;border:1.5px solid #e85d04;cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
+    <a href="https://itabs.ai" target="_blank">iTabs</a>
+    <button onclick="openModal('itabsInfo')" style="width:24px;height:24px;border-radius:50%;background:transparent;color:#e85d04;font-size:.72rem;font-weight:700;border:1.5px solid #e85d04;cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
   </div>
 </div>
 
+<!-- STICKY STRIP -->
 <div id="sticky-strip">
   <div>
     <div class="ss-label">Your estimate</div>
@@ -331,6 +403,7 @@
   <button class="ss-btn" onclick="document.getElementById('wstep4').scrollIntoView({behavior:'smooth',block:'start'})">See breakdown &#8595;</button>
 </div>
 
+<!-- INFO MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -339,8 +412,33 @@
   </div>
 </div>
 
+<!-- GALLERY MODAL -->
+<div id="gallery-overlay" onclick="if(event.target===this)closeGallery()">
+  <button class="gallery-close" onclick="closeGallery()">&#10005;</button>
+  <div class="gallery-counter" id="gallery-counter">1 / 8</div>
+
+  <div class="gallery-label-strip" id="gallery-cats"></div>
+
+  <div class="gallery-main">
+    <button class="gallery-nav gallery-prev" onclick="galleryNav(-1)">&#8592;</button>
+    <div class="gallery-img-wrap">
+      <img class="gallery-img" id="gallery-img" src="" alt="" onerror="this.style.display='none';document.getElementById('gallery-placeholder').style.display='flex'">
+      <div class="gallery-img-placeholder" id="gallery-placeholder" style="display:none;">
+        <div class="big-icon" id="gallery-ph-icon">&#128247;</div>
+        <div class="caption" id="gallery-ph-caption">Photo loading...</div>
+      </div>
+    </div>
+    <button class="gallery-nav gallery-next" onclick="galleryNav(1)">&#8594;</button>
+  </div>
+
+  <div class="gallery-caption" id="gallery-caption"></div>
+  <div class="gallery-dots" id="gallery-dots"></div>
+</div>
+
 <script>
 (function(){
+
+  // ── CONFIG ──
   var CONFIG={
     businessName:'Jarrah Fencing Perth',phone:'0412345678',
     rates:{colorbond:{min:95,max:130},timber:{min:85,max:120},aluminium:{min:150,max:220},pool:{min:180,max:350}},
@@ -355,32 +453,129 @@
     opEmail:'jgwynne7@gmail.com'
   };
 
+  // ── GALLERY DATA ──
+  // Replace these Unsplash URLs with actual business photos when going live
+  var GALLERY=[
+    {url:'https://images.unsplash.com/photo-1591955506264-3f5a6834570a?w=900&h=675&fit=crop&q=85',caption:'Colorbond steel — Wanneroo, 2025',cat:'Colorbond'},
+    {url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=675&fit=crop&q=85',caption:'Hardwood timber paling — Stirling, 2025',cat:'Timber'},
+    {url:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=675&fit=crop&q=85',caption:'Aluminium slat — Scarborough, 2025',cat:'Aluminium'},
+    {url:'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=900&h=675&fit=crop&q=85',caption:'Frameless glass pool fence — Cottesloe, 2024',cat:'Pool'},
+    {url:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&h=675&fit=crop&q=85',caption:'Full perimeter Colorbond — Joondalup, 2025',cat:'Colorbond'},
+    {url:'https://images.unsplash.com/photo-1449247526831-6db0eca93eab?w=900&h=675&fit=crop&q=85',caption:'Treated pine paling — Fremantle, 2024',cat:'Timber'},
+    {url:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&h=675&fit=crop&q=85',caption:'Privacy aluminium slat — South Perth, 2025',cat:'Aluminium'},
+    {url:'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=900&h=675&fit=crop&q=85',caption:'Semi-frameless pool fence — Rockingham, 2025',cat:'Pool'}
+  ];
+
+  var galIdx=0;
+  var galFilter='All';
+  var galFiltered=GALLERY;
+
+  function getFiltered(){
+    return galFilter==='All'?GALLERY:GALLERY.filter(function(g){return g.cat===galFilter});
+  }
+
+  window.openGallery=function(startIdx){
+    galFilter='All';galFiltered=getFiltered();
+    galIdx=startIdx||0;
+    renderGalCats();renderGalDots();showGalSlide();
+    document.getElementById('gallery-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+
+  window.closeGallery=function(){
+    document.getElementById('gallery-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  };
+
+  function renderGalCats(){
+    var cats=['All','Colorbond','Timber','Aluminium','Pool'];
+    var html='';
+    cats.forEach(function(c){
+      html+='<button class="gallery-label-btn'+(c===galFilter?' active':'')+'" onclick="filterGallery(\''+c+'\')">'+c+'</button>';
+    });
+    document.getElementById('gallery-cats').innerHTML=html;
+  }
+
+  window.filterGallery=function(cat){
+    galFilter=cat;galFiltered=getFiltered();galIdx=0;
+    renderGalCats();renderGalDots();showGalSlide();
+  };
+
+  function renderGalDots(){
+    var html='';
+    galFiltered.forEach(function(_,i){
+      html+='<button class="gallery-dot'+(i===galIdx?' active':'')+'" onclick="galJump('+i+')"></button>';
+    });
+    document.getElementById('gallery-dots').innerHTML=html;
+  }
+
+  window.galJump=function(i){galIdx=i;showGalSlide();renderGalDots();};
+
+  function showGalSlide(){
+    if(!galFiltered.length)return;
+    var item=galFiltered[galIdx];
+    var img=document.getElementById('gallery-img');
+    var ph=document.getElementById('gallery-placeholder');
+    img.style.display='block';ph.style.display='none';
+    img.src=item.url;
+    img.alt=item.caption;
+    document.getElementById('gallery-caption').textContent=item.caption;
+    document.getElementById('gallery-counter').textContent=(galIdx+1)+' / '+galFiltered.length;
+    // update dots
+    var dots=document.querySelectorAll('.gallery-dot');
+    dots.forEach(function(d,i){d.classList.toggle('active',i===galIdx)});
+  }
+
+  window.galleryNav=function(dir){
+    if(!galFiltered.length)return;
+    galIdx=(galIdx+dir+galFiltered.length)%galFiltered.length;
+    showGalSlide();renderGalDots();
+  };
+
+  // Swipe support for gallery
+  var tsX=null;
+  document.getElementById('gallery-overlay').addEventListener('touchstart',function(e){tsX=e.touches[0].clientX},{passive:true});
+  document.getElementById('gallery-overlay').addEventListener('touchend',function(e){
+    if(tsX===null)return;
+    var dx=e.changedTouches[0].clientX-tsX;
+    if(Math.abs(dx)>40)galleryNav(dx<0?1:-1);
+    tsX=null;
+  },{passive:true});
+  // Keyboard nav
+  document.addEventListener('keydown',function(e){
+    if(!document.getElementById('gallery-overlay').classList.contains('open'))return;
+    if(e.key==='ArrowLeft')galleryNav(-1);
+    if(e.key==='ArrowRight')galleryNav(1);
+    if(e.key==='Escape')closeGallery();
+  });
+
+  // ── WIDGET STATE ──
   var state={fenceType:'colorbond',length:20,height:1800,removal:'no',slope:'flat',coastal:'inland',gate:'none',contactPref:'email',timeline:'asap'};
   var lastResult=null;
   var runs=[20];
 
   var tips={
-    fenceType:{title:'Choosing Your Fence',content:'<p><strong>Colorbond</strong> \u2014 Australia\'s most popular fencing. Steel panels that won\'t warp, rot, or need painting. 22 colours. Lasts 20\u201330+ years in Perth\'s climate.</p><p><strong>Timber</strong> \u2014 Natural look, suits heritage areas and gardens. Treated pine lasts 15\u201320 years. Needs oiling every 2\u20133 years.</p><p><strong>Aluminium Slat</strong> \u2014 Modern, low maintenance, won\'t rust. Great near pools and coastal areas.</p><p><strong>Pool Fencing</strong> \u2014 Must comply with AS1926.1. Certified inspection required \u2014 we handle all compliance for you.</p>'},
-    length:{title:'Measuring Your Fence Run',content:'<p>Walk the fence line and count your steps \u2014 each adult step is roughly 0.75m. So 30 steps \u2248 22 metres.</p><p>Or use Google Maps: right-click your boundary \u2192 "Measure distance". For corners, measure each section separately and add together.</p>'},
-    height:{title:'Fence Height &amp; Perth Regulations',content:'<p><strong>1.2m</strong> \u2014 Low boundary. Usually no permit needed.</p><p><strong>1.5m</strong> \u2014 Common front fence. Check with council.</p><p><strong>1.8m</strong> \u2014 Standard privacy fence. May need a building permit.</p><p><strong>2.1m</strong> \u2014 Tall fence. Permit likely required in most Perth councils.</p><p><strong>Dividing Fences Act WA:</strong> Neighbours typically split the cost of a standard 1.8m Colorbond dividing fence.</p>'},
-    removal:{title:'Old Fence Removal',content:'<p>Removing an old fence adds $15\u2013$25 per metre, covering labour, post extraction, and tip disposal.</p><p><strong>Asbestos fencing:</strong> Common in pre-1980s Perth homes \u2014 rough grey fibrous cement sheeting. Must be handled by a licensed removalist. Get it tested if unsure.</p>'},
-    slope:{title:'Sloping Blocks in Perth',content:'<p><strong>Flat:</strong> Standard pricing applies.</p><p><strong>Gentle slope:</strong> Stepped or raked panels. Adds 10\u201315%.</p><p><strong>Steep or rocky:</strong> Core drilling into limestone may be needed \u2014 very common north of the river. Adds 20\u201325%. We confirm on site.</p>'},
-    coastal:{title:'Coastal Exposure in Perth',content:'<p>Within 10km of the coast, salt air attacks steel finishes faster. We use Colorbond Coastal spec with marine-grade coating. Timber is not recommended near the coast. Budget 8\u201312% extra for coastal materials.</p>'},
-    gate:{title:'Gates',content:'<p><strong>Pedestrian gate</strong> \u2014 Single leaf, 900\u20131200mm wide. $350\u2013$600 installed.</p><p><strong>Driveway gate</strong> \u2014 Double leaf swing or sliding. Manual: $900\u2013$1,800. Add $1,200\u2013$2,500 for motor and remote.</p>'},
-    bizInfo:{title:'About Jarrah Fencing Perth',content:'<p><strong>Family run since 2012.</strong> Over 2,400 fences across Perth metro \u2014 Joondalup to Mandurah.</p><p>\u2b50\u2b50\u2b50\u2b50\u2b50 <em>"Turned up on time, cleaned up after themselves, and the fence looks absolutely brilliant."</em> \u2014 Sarah, Stirling</p><p>\u2b50\u2b50\u2b50\u2b50\u2b50 <em>"Fixed our old Colorbond and it looks brand new. Fair price, no dramas."</em> \u2014 Mark, Rockingham</p><p>5-year labour warranty. Free measure and quote.</p>'},
-    itabsInfo:{title:'What is iTabs?',content:'<p><strong>iTabs builds instant quote tools for trade businesses.</strong> Instead of a contact form and a 2-day wait \u2014 customers get a ballpark in 60 seconds.</p><p>This tool was built specifically for Jarrah Fencing Perth \u2014 their colours, their services, their pricing.</p><p><strong>Are you a tradie?</strong> We can build one of these for your business. Free to try.</p><p><a href="https://itabs.ai" style="color:#e85d04;" target="_blank">Find out more at itabs.ai \u2192</a></p>'},
-    comparison:{title:'How Fence Types Compare',content:'<p><strong>Colorbond vs Timber</strong> \u2014 Colorbond costs slightly more upfront but zero maintenance. Over 20 years, almost always cheaper total.</p><p><strong>Colorbond vs Aluminium</strong> \u2014 Both low maintenance. Aluminium looks more modern and is better near pools.</p><p><strong>Pool Fencing</strong> \u2014 Legally required around pools. Glass looks premium, aluminium is the practical option.</p>'}
+    fenceType:{title:'Choosing Your Fence',content:'<p><strong>Colorbond</strong> — Perth\'s #1 fencing. Steel panels that won\'t warp, rot, or need painting. 22 colours. 20–30+ year lifespan.</p><p><strong>Timber</strong> — Natural look, suits gardens and heritage areas. Treated pine lasts 15–20 years. Needs oiling every 2–3 years.</p><p><strong>Aluminium Slat</strong> — Modern, low maintenance, won\'t rust. Great near pools and coastal areas.</p><p><strong>Pool Fencing</strong> — Must comply with AS1926.1. Certified inspection required — we handle all compliance for you.</p>'},
+    length:{title:'Measuring Your Fence Run',content:'<p>Walk the fence line and count your steps — each adult step is roughly 0.75m. So 30 steps ≈ 22 metres.</p><p>Or use Google Maps: right-click your boundary → "Measure distance". For corners, measure each section separately and add together.</p>'},
+    height:{title:'Fence Height & Perth Regulations',content:'<p><strong>1.2m</strong> — Low boundary. Usually no permit needed.</p><p><strong>1.5m</strong> — Common front fence. Check with council.</p><p><strong>1.8m</strong> — Standard privacy fence. May need a building permit.</p><p><strong>2.1m</strong> — Tall fence. Permit likely required in most Perth councils.</p><p><strong>Dividing Fences Act WA:</strong> Neighbours typically split the cost of a standard 1.8m Colorbond dividing fence.</p>'},
+    removal:{title:'Old Fence Removal',content:'<p>Removing an old fence adds $15–$25 per metre, covering labour, post extraction, and tip disposal.</p><p><strong>Asbestos fencing:</strong> Common in pre-1980s Perth homes. Must be handled by a licensed removalist. Get it tested if unsure.</p>'},
+    slope:{title:'Sloping Blocks in Perth',content:'<p><strong>Flat:</strong> Standard pricing applies.</p><p><strong>Gentle slope:</strong> Stepped or raked panels. Adds 10–15%.</p><p><strong>Steep or rocky:</strong> Core drilling into limestone may be needed — common north of the river. Adds 20–25%. We confirm on site.</p>'},
+    coastal:{title:'Coastal Exposure in Perth',content:'<p>Within 10km of the coast, salt air attacks steel finishes faster. We use Colorbond Coastal spec with marine-grade coating. Timber is not recommended near the coast. Budget 8–12% extra for coastal materials.</p>'},
+    gate:{title:'Gates',content:'<p><strong>Pedestrian gate</strong> — Single leaf, 900–1200mm wide. $350–$600 installed.</p><p><strong>Driveway gate</strong> — Double leaf swing or sliding. Manual: $900–$1,800. Add $1,200–$2,500 for motor and remote.</p>'},
+    bizInfo:{title:'About Jarrah Fencing Perth',content:'<p><strong>Family run since 2012.</strong> Over 2,400 fences across Perth metro — Joondalup to Mandurah.</p><p>⭐⭐⭐⭐⭐ <em>"Turned up on time, cleaned up after themselves, and the fence looks absolutely brilliant."</em> — Sarah, Stirling</p><p>⭐⭐⭐⭐⭐ <em>"Fixed our old Colorbond and it looks brand new. Fair price, no dramas."</em> — Mark, Rockingham</p><p>5-year labour warranty. Free measure and quote.</p>'},
+    itabsInfo:{title:'What is iTabs?',content:'<p><strong>iTabs builds instant quote tools for trade businesses.</strong> Instead of a contact form and a 2-day wait — customers get a ballpark in 60 seconds.</p><p>This tool was built specifically for Jarrah Fencing Perth — their colours, their services, their pricing.</p><p><strong>Are you a tradie?</strong> We can build one of these for your business. Free to try.</p><p><a href="https://itabs.ai" style="color:#e85d04;" target="_blank">Find out more at itabs.ai →</a></p>'},
+    comparison:{title:'How Fence Types Compare',content:'<p><strong>Colorbond vs Timber</strong> — Colorbond costs slightly more upfront but zero maintenance. Over 20 years, almost always cheaper total.</p><p><strong>Colorbond vs Aluminium</strong> — Both low maintenance. Aluminium looks more modern and is better near pools.</p><p><strong>Pool Fencing</strong> — Legally required around pools. Glass looks premium, aluminium is the practical option.</p>'}
   };
 
   function fmt(n){return n.toLocaleString()}
 
   function countUp(el,target,duration){
-    var start=null,from=0;
+    var start=null;
     function step(ts){
       if(!start)start=ts;
       var p=Math.min((ts-start)/duration,1);
       var e=1-Math.pow(1-p,3);
-      el.textContent='$'+fmt(Math.round(from+(target-from)*e));
+      el.textContent='$'+fmt(Math.round(target*e));
       if(p<1)requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -396,31 +591,26 @@
     var coastal=document.getElementById('w-coastal')?document.getElementById('w-coastal').value:'inland';
     var gate=document.getElementById('w-gate')?document.getElementById('w-gate').value:'none';
     var adj=1.0;
-    if(slope==='gentle')adj+=0.12;
-    if(slope==='steep')adj+=0.25;
-    if(coastal==='coastal')adj+=0.10;
-    if(h>=2100)adj+=0.12;
+    if(slope==='gentle')adj+=0.12;if(slope==='steep')adj+=0.25;
+    if(coastal==='coastal')adj+=0.10;if(h>=2100)adj+=0.12;
     var r=CONFIG.rates[state.fenceType];
     var tMin=Math.round(r.min*len*adj),tMax=Math.round(r.max*len*adj);
     if(removal==='yes'){tMin+=Math.round(CONFIG.extras.removal.min*len);tMax+=Math.round(CONFIG.extras.removal.max*len);}
     if(gate==='pedestrian'){tMin+=CONFIG.extras.gate_pedestrian.min;tMax+=CONFIG.extras.gate_pedestrian.max;}
     if(gate==='driveway'){tMin+=CONFIG.extras.gate_driveway.min;tMax+=CONFIG.extras.gate_driveway.max;}
     if(state.fenceType==='pool'){tMin+=250;tMax+=500;}
-    document.getElementById('ticker-val').textContent='~$'+fmt(tMin)+' \u2013 $'+fmt(tMax);
+    document.getElementById('ticker-val').textContent='~$'+fmt(tMin)+' – $'+fmt(tMax);
   };
 
   function showLiveTicker(){
-    var ticker=document.getElementById('live-ticker');
-    ticker.style.display='block';
-    ticker.classList.add('showing');
-    updateLiveTicker();
+    var t=document.getElementById('live-ticker');
+    t.style.display='block';t.classList.add('showing');updateLiveTicker();
   }
 
   function completeStep(from,to){
     var fc=document.getElementById('wstep'+from),tc=document.getElementById('wstep'+to);
     fc.classList.remove('active');fc.classList.add('completed');
-    updateSummary(from);
-    document.getElementById('wnum'+from).textContent='\u2713';
+    updateSummary(from);document.getElementById('wnum'+from).textContent='✓';
     tc.classList.add('active');
     var dots=document.querySelectorAll('.wp-dot');
     for(var i=0;i<to;i++)dots[i].classList.add('active');
@@ -430,21 +620,20 @@
 
   window.goStep=function(n){
     var card=document.getElementById('wstep'+n);
-    if(card.classList.contains('completed')||card.classList.contains('active')){
-      document.querySelectorAll('.step-card').forEach(function(c){c.classList.remove('active')});
-      card.classList.add('active');
-    }
+    var isOpen=card.classList.contains('active');
+    document.querySelectorAll('.step-card').forEach(function(c){c.classList.remove('active')});
+    if(!isOpen)card.classList.add('active');
   };
 
   window.nextStep=function(from,to){readInputs();completeStep(from,to)};
 
   function updateSummary(step){
     var names={colorbond:'Colorbond',timber:'Timber',aluminium:'Aluminium',pool:'Pool'};
-    if(step===1){document.getElementById('wsum1').textContent=names[state.fenceType]||'';}
+    if(step===1)document.getElementById('wsum1').textContent=names[state.fenceType]||'';
     else if(step===2){
       state.length=runs.reduce(function(a,b){return a+b},0);
       state.height=parseInt(document.getElementById('w-height').value);
-      document.getElementById('wsum2').textContent=state.length+'m \u00d7 '+(state.height/1000).toFixed(1)+'m';
+      document.getElementById('wsum2').textContent=state.length+'m × '+(state.height/1000).toFixed(1)+'m';
     }else if(step===3){
       var p=[];
       if(state.removal==='yes')p.push('Removal');
@@ -457,7 +646,7 @@
 
   window.selectFence=function(type,el){
     state.fenceType=type;
-    document.querySelectorAll('.sub-option').forEach(function(o){o.classList.remove('selected');o.classList.remove('bounce')});
+    document.querySelectorAll('.fence-card').forEach(function(c){c.classList.remove('selected','bounce')});
     el.classList.add('selected');
     void el.offsetWidth;
     el.classList.add('bounce');
@@ -477,10 +666,8 @@
   function calculate(){
     readInputs();
     var len=state.length,adj=1.0;
-    if(state.slope==='gentle')adj+=0.12;
-    if(state.slope==='steep')adj+=0.25;
-    if(state.coastal==='coastal')adj+=0.10;
-    if(state.height>=2100)adj+=0.12;
+    if(state.slope==='gentle')adj+=0.12;if(state.slope==='steep')adj+=0.25;
+    if(state.coastal==='coastal')adj+=0.10;if(state.height>=2100)adj+=0.12;
     var r=CONFIG.rates[state.fenceType];
     var rawMin=Math.round(r.min*len*adj),rawMax=Math.round(r.max*len*adj);
     var li=CONFIG.lineItems[state.fenceType];
@@ -503,49 +690,43 @@
       lineItems.push({name:'Spigots, clips & hardware',min:Math.round(li.clips[0]*len),max:Math.round(li.clips[1]*len)});
     }
     lineItems.push({name:'Labour & installation',min:Math.round(li.labour[0]*len*adj),max:Math.round(li.labour[1]*len*adj)});
-    if(state.removal==='yes'){
-      var rem={min:Math.round(CONFIG.extras.removal.min*len),max:Math.round(CONFIG.extras.removal.max*len)};
-      lineItems.push({name:'Old fence removal & disposal',min:rem.min,max:rem.max});
-      rawMin+=rem.min;rawMax+=rem.max;
-    }
-    if(state.gate==='pedestrian'){lineItems.push({name:'Pedestrian gate (installed)',min:CONFIG.extras.gate_pedestrian.min,max:CONFIG.extras.gate_pedestrian.max});rawMin+=CONFIG.extras.gate_pedestrian.min;rawMax+=CONFIG.extras.gate_pedestrian.max;}
-    if(state.gate==='driveway'){lineItems.push({name:'Driveway gate (installed)',min:CONFIG.extras.gate_driveway.min,max:CONFIG.extras.gate_driveway.max});rawMin+=CONFIG.extras.gate_driveway.min;rawMax+=CONFIG.extras.gate_driveway.max;}
+    if(state.removal==='yes'){var rem={min:Math.round(15*len),max:Math.round(25*len)};lineItems.push({name:'Old fence removal & disposal',min:rem.min,max:rem.max});rawMin+=rem.min;rawMax+=rem.max;}
+    if(state.gate==='pedestrian'){lineItems.push({name:'Pedestrian gate (installed)',min:350,max:600});rawMin+=350;rawMax+=600;}
+    if(state.gate==='driveway'){lineItems.push({name:'Driveway gate (installed)',min:900,max:1800});rawMin+=900;rawMax+=1800;}
     if(state.fenceType==='pool'){lineItems.push({name:'Compliance inspection & cert',min:250,max:500});rawMin+=250;rawMax+=500;}
     var comparisons=[
-      {label:'Timber',colour:'#8B6914',min:Math.round(CONFIG.rates.timber.min*len*adj),max:Math.round(CONFIG.rates.timber.max*len*adj),hl:state.fenceType==='timber'},
-      {label:'Colorbond',colour:'#4A7C59',min:Math.round(CONFIG.rates.colorbond.min*len*adj),max:Math.round(CONFIG.rates.colorbond.max*len*adj),hl:state.fenceType==='colorbond'},
-      {label:'Aluminium',colour:'#3A6B8A',min:Math.round(CONFIG.rates.aluminium.min*len*adj),max:Math.round(CONFIG.rates.aluminium.max*len*adj),hl:state.fenceType==='aluminium'},
-      {label:'Pool Glass',colour:'#555',min:Math.round(CONFIG.rates.pool.min*len*adj),max:Math.round(CONFIG.rates.pool.max*len*adj),hl:state.fenceType==='pool'}
+      {label:'Timber',colour:'#8B6914',min:Math.round(85*len*adj),max:Math.round(120*len*adj),hl:state.fenceType==='timber'},
+      {label:'Colorbond',colour:'#4A7C59',min:Math.round(95*len*adj),max:Math.round(130*len*adj),hl:state.fenceType==='colorbond'},
+      {label:'Aluminium',colour:'#3A6B8A',min:Math.round(150*len*adj),max:Math.round(220*len*adj),hl:state.fenceType==='aluminium'},
+      {label:'Pool Glass',colour:'#555',min:Math.round(180*len*adj),max:Math.round(350*len*adj),hl:state.fenceType==='pool'}
     ].sort(function(a,b){return(a.min+a.max)/2-(b.min+b.max)/2});
-    return{min:rawMin,max:rawMax,range:'$'+fmt(rawMin)+' \u2013 $'+fmt(rawMax),lineItems:lineItems,comparisons:comparisons};
+    return{min:rawMin,max:rawMax,range:'$'+fmt(rawMin)+' – $'+fmt(rawMax),lineItems:lineItems,comparisons:comparisons};
   }
 
   function renderAlerts(){
     var html='';
     if(state.fenceType==='pool')html+='<div class="alert alert-danger"><strong>Pool fencing compliance required.</strong> Must meet AS1926.1. We handle certification and council inspection for you.</div>';
-    if(state.height>=2100)html+='<div class="alert alert-warn"><strong>2.1m fence</strong> \u2014 building permit likely required in most Perth councils.</div>';
+    if(state.height>=2100)html+='<div class="alert alert-warn"><strong>2.1m fence</strong> — building permit likely required in most Perth councils.</div>';
     if(state.slope==='steep')html+='<div class="alert alert-warn"><strong>Steep or rocky block.</strong> Core drilling may be needed. We\'ll confirm on the site measure.</div>';
     if(state.coastal==='coastal')html+='<div class="alert alert-info"><strong>Coastal zone:</strong> Marine-grade materials and hardware included in your estimate.</div>';
-    if(state.fenceType==='timber'&&state.coastal==='coastal')html+='<div class="alert alert-warn"><strong>Timber + coastal</strong> \u2014 salt accelerates rot. Colorbond or aluminium holds up better near the coast.</div>';
+    if(state.fenceType==='timber'&&state.coastal==='coastal')html+='<div class="alert alert-warn"><strong>Timber + coastal</strong> — salt accelerates rot. Colorbond or aluminium holds up better near the coast.</div>';
     document.getElementById('w-alerts').innerHTML=html;
   }
 
   function renderChart(result){
-    var maxC=0;
-    result.comparisons.forEach(function(c){if(c.max>maxC)maxC=c.max});
+    var maxC=0;result.comparisons.forEach(function(c){if(c.max>maxC)maxC=c.max});
     var html='';
     result.comparisons.forEach(function(c){
       var pct=Math.max(Math.round(((c.min+c.max)/2/maxC)*100),22);
-      html+='<div class="bar-row'+(c.hl?' hl':'')+'"><div class="bar-label">'+c.label+'</div>';
-      html+='<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+c.colour+'">$'+fmt(c.min)+'\u2013$'+fmt(c.max)+'</div></div></div>';
+      html+='<div class="bar-row'+(c.hl?' hl':'')+'"><div class="bar-label">'+c.label+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+c.colour+'">$'+fmt(c.min)+'–$'+fmt(c.max)+'</div></div></div>';
     });
     document.getElementById('w-chart').innerHTML=html;
   }
 
   function renderBreakdown(result){
     var html='',tMin=0,tMax=0;
-    result.lineItems.forEach(function(item){tMin+=item.min;tMax+=item.max;html+='<tr><td>'+item.name+'</td><td style="text-align:right">$'+fmt(item.min)+' \u2013 $'+fmt(item.max)+'</td></tr>';});
-    html+='<tr class="total"><td>Estimated Total</td><td style="text-align:right">$'+fmt(tMin)+' \u2013 $'+fmt(tMax)+'</td></tr>';
+    result.lineItems.forEach(function(item){tMin+=item.min;tMax+=item.max;html+='<tr><td>'+item.name+'</td><td style="text-align:right">$'+fmt(item.min)+' – $'+fmt(item.max)+'</td></tr>';});
+    html+='<tr class="total"><td>Estimated Total</td><td style="text-align:right">$'+fmt(tMin)+' – $'+fmt(tMax)+'</td></tr>';
     document.getElementById('w-bd-body').innerHTML=html;
   }
 
@@ -553,23 +734,20 @@
     readInputs();updateSummary(3);
     document.getElementById('wstep3').classList.remove('active');
     document.getElementById('wstep3').classList.add('completed');
-    document.getElementById('wnum3').textContent='\u2713';
+    document.getElementById('wnum3').textContent='✓';
     lastResult=calculate();
     var sumEl=document.getElementById('wsum4');
     var finalRange=lastResult.range;
     var tempEl=document.createElement('span');
-    tempEl.textContent='$0';
-    sumEl.textContent='';
-    sumEl.appendChild(tempEl);
+    sumEl.textContent='';sumEl.appendChild(tempEl);
     countUp(tempEl,lastResult.min,900);
     setTimeout(function(){sumEl.textContent=finalRange;},950);
     document.getElementById('wstep4').classList.add('active');
     var dots=document.querySelectorAll('.wp-dot');
     for(var i=0;i<4;i++)dots[i].classList.add('active');
     renderAlerts();renderChart(lastResult);
-    var strip=document.getElementById('sticky-strip');
     document.getElementById('sticky-range').textContent=finalRange;
-    strip.classList.add('show');
+    document.getElementById('sticky-strip').classList.add('show');
     setTimeout(function(){document.getElementById('wstep4').scrollIntoView({behavior:'smooth',block:'start'})},100);
   };
 
@@ -592,19 +770,8 @@
     var suburb=document.getElementById('w-suburb').value;
     if(!name||!email){alert('Please fill in your name and email to see the breakdown.');return}
     var fenceLabels={colorbond:'Colorbond Steel',timber:'Timber',aluminium:'Aluminium Slat',pool:'Pool Fencing'};
-    var message=[
-      '--- CUSTOMER DETAILS ---','Name: '+name,'Email: '+email,
-      'Phone: '+(phone||'Not provided'),'Preferred contact: '+state.contactPref,
-      'Suburb: '+(suburb||'Not provided'),'Timeline: '+state.timeline,'',
-      '--- FENCE SPECIFICATIONS ---','Fence type: '+(fenceLabels[state.fenceType]||state.fenceType),
-      'Length: '+state.length+'m','Height: '+(state.height/1000).toFixed(1)+'m',
-      'Old fence removal: '+state.removal,'Slope: '+state.slope,
-      'Coastal exposure: '+state.coastal,'Gate: '+state.gate,'',
-      'Source: '+(new URLSearchParams(window.location.search).get('src')||'direct')
-    ].join('\n');
-    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({access_key:CONFIG.web3Key,subject:'New Fencing Enquiry \u2013 '+name+(suburb?' ('+suburb+')':''),from_name:name,replyto:email,to:CONFIG.opEmail,message:message})
-    }).then(function(r){return r.json()}).then(function(d){console.log('Lead sent:',d)}).catch(function(e){console.error('Lead error:',e)});
+    var message=['--- CUSTOMER DETAILS ---','Name: '+name,'Email: '+email,'Phone: '+(phone||'Not provided'),'Preferred contact: '+state.contactPref,'Suburb: '+(suburb||'Not provided'),'Timeline: '+state.timeline,'','--- FENCE SPECIFICATIONS ---','Fence type: '+(fenceLabels[state.fenceType]||state.fenceType),'Length: '+state.length+'m','Height: '+(state.height/1000).toFixed(1)+'m','Old fence removal: '+state.removal,'Slope: '+state.slope,'Coastal exposure: '+state.coastal,'Gate: '+state.gate,'','Source: '+(new URLSearchParams(window.location.search).get('src')||'direct')].join('\n');
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_key:CONFIG.web3Key,subject:'New Fencing Enquiry – '+name+(suburb?' ('+suburb+')':''),from_name:name,replyto:email,to:CONFIG.opEmail,message:message})}).then(function(r){return r.json()}).then(function(d){console.log('Lead sent:',d)}).catch(function(e){console.error(e)});
     document.getElementById('w-leadgate').style.display='none';
     document.getElementById('sticky-strip').classList.remove('show');
     renderBreakdown(lastResult);
@@ -619,36 +786,26 @@
   };
   window.closeModal=function(){document.getElementById('modal-overlay').classList.remove('open')};
 
+  // ── RUNS SYSTEM ──
   function renderRuns(){
-    var container=document.getElementById('runs-container');
-    var html='';
+    var container=document.getElementById('runs-container');var html='';
     runs.forEach(function(len,i){
-      var label=runs.length===1?'Length':(['Back fence','Side fence','Front fence','Section '+(i+1)][i]||'Section '+(i+1));
-      html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">';
-      html+='<div style="font-size:0.75rem;color:var(--w-slate);width:72px;flex-shrink:0;">'+label+'</div>';
-      html+='<input type="range" min="2" max="80" value="'+len+'" style="flex:1;accent-color:var(--w-primary)" oninput="updateRun('+i+',parseInt(this.value))">';
-      html+='<div style="font-weight:700;font-size:0.88rem;min-width:36px;text-align:right;color:var(--w-dark)">'+len+'m</div>';
-      if(runs.length>1)html+='<button onclick="removeRun('+i+')" style="background:rgba(192,57,43,0.1);border:none;color:var(--w-danger);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">\u00d7</button>';
-      html+='</div>';
+      var labels=['Back fence','Side fence','Front fence','Section '+(i+1)];
+      var label=runs.length===1?'Length':(labels[i]||'Section '+(i+1));
+      html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="font-size:.75rem;color:var(--w-slate);width:72px;flex-shrink:0;">'+label+'</div><input type="range" min="2" max="80" value="'+len+'" style="flex:1;accent-color:var(--w-primary)" oninput="updateRun('+i+',parseInt(this.value))"><div style="font-weight:700;font-size:.88rem;min-width:36px;text-align:right;color:var(--w-dark)">'+len+'m</div>'+(runs.length>1?'<button onclick="removeRun('+i+')" style="background:rgba(192,57,43,.1);border:none;color:var(--w-danger);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">×</button>':'')+'</div>';
     });
-    container.innerHTML=html;
-    updateTotalDisplay();
+    container.innerHTML=html;updateTotalDisplay();
   }
-
-  window.updateRun=function(i,val){runs[i]=val;updateTotalDisplay();updateLiveTicker();};
-
+  window.updateRun=function(i,val){runs[i]=val;updateTotalDisplay();updateLiveTicker()};
   function updateTotalDisplay(){
-    var total=runs.reduce(function(a,b){return a+b},0);
-    state.length=total;
-    var el=document.getElementById('total-length-display');
-    if(el)el.textContent=total+'m';
+    var total=runs.reduce(function(a,b){return a+b},0);state.length=total;
+    var el=document.getElementById('total-length-display');if(el)el.textContent=total+'m';
     updateLiveTicker();
   }
-
   window.addRun=function(){runs.push(10);renderRuns()};
   window.removeRun=function(i){runs.splice(i,1);renderRuns()};
-
   renderRuns();
+
 })();
 </script>
 </body>
