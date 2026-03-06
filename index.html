@@ -149,7 +149,8 @@
     #sticky-strip .ss-value{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--w-primary)}
     #sticky-strip .ss-btn{background:var(--w-primary);border:none;color:white;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;padding:8px 14px;border-radius:6px;cursor:pointer;white-space:nowrap}
     /* Animations */
-    @keyframes cardBounce{0%{transform:scale(1)}40%{transform:scale(1.03)}70%{transform:scale(0.98)}100%{transform:scale(1)}}
+    .step-chevron{font-size:1.3rem;color:#bbb;transition:transform .25s;line-height:1;flex-shrink:0;margin-left:4px;}
+    .step-card.active .step-chevron{transform:rotate(90deg);color:var(--w-primary)}0%{transform:scale(1)}40%{transform:scale(1.03)}70%{transform:scale(0.98)}100%{transform:scale(1)}}
     @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
@@ -163,15 +164,13 @@
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,14,14,0.78) 0%,rgba(14,14,14,0.28) 100%);"></div>
     <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,0.12);font-size:0.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;">[ BUSINESS PHOTO GOES HERE ]</div>
     <div style="position:absolute;inset:0;padding:18px 16px;display:flex;flex-direction:column;justify-content:flex-end;">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;color:white;line-height:1;">JARRAH<span style="color:#e85d04">.</span></div>
-          <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:transparent;color:white;font-size:.78rem;font-weight:700;border:1.5px solid rgba(255,255,255,.8);cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
-        </div>
-        <!-- VIEW OUR WORK BUTTON -->
-        <button onclick="openGallery(0)" style="display:flex;align-items:center;gap:6px;background:rgba(232,93,4,0.85);border:none;color:white;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:7px 12px;border-radius:20px;cursor:pointer;letter-spacing:.3px;">
-          <span style="font-size:1rem;">&#128247;</span> Our Work
-        </button>
+      <!-- OUR WORK — top right -->
+      <button onclick="openGallery(0)" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:6px;background:rgba(232,93,4,0.9);border:none;color:white;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer;letter-spacing:.3px;box-shadow:0 2px 8px rgba(0,0,0,0.3);">
+        <span style="font-size:.95rem;">&#128247;</span> Our Work
+      </button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;color:white;line-height:1;">JARRAH<span style="color:#e85d04">.</span></div>
+        <button onclick="openModal('bizInfo')" style="width:26px;height:26px;border-radius:50%;background:transparent;color:white;font-size:.78rem;font-weight:700;border:1.5px solid rgba(255,255,255,.8);cursor:pointer;display:flex;align-items:center;justify-content:center;">i</button>
       </div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.7);margin-top:4px;">Colorbond &middot; Timber &middot; Pool Fencing &middot; Perth Metro</div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
@@ -200,6 +199,7 @@
         <div class="step-num" id="wnum1">1</div>
         <div class="step-title-txt">Fence Type</div>
         <div class="step-sum" id="wsum1"></div>
+        <div class="step-chevron" id="chev1">&#8250;</div>
       </div>
       <div class="step-body">
         <div class="field-label">Choose your fence type <button class="info-btn" onclick="openModal('fenceType')">i</button></div>
@@ -257,6 +257,7 @@
         <div class="step-num" id="wnum2">2</div>
         <div class="step-title-txt">Dimensions</div>
         <div class="step-sum" id="wsum2"></div>
+        <div class="step-chevron" id="chev2">&#8250;</div>
       </div>
       <div class="step-body">
         <div class="field-group">
@@ -289,6 +290,7 @@
         <div class="step-num" id="wnum3">3</div>
         <div class="step-title-txt">Site Conditions</div>
         <div class="step-sum" id="wsum3"></div>
+        <div class="step-chevron" id="chev3">&#8250;</div>
       </div>
       <div class="step-body">
         <div class="field-group">
@@ -331,6 +333,7 @@
         <div class="step-num" id="wnum4">4</div>
         <div class="step-title-txt">Your Estimate</div>
         <div class="step-sum" id="wsum4"></div>
+        <div class="step-chevron" id="chev4">&#8250;</div>
       </div>
       <div class="step-body">
         <div id="w-alerts"></div>
@@ -377,7 +380,7 @@
             <p>This is a ballpark. Jarrah will measure your site and provide a fixed price &mdash; free, no obligation.</p>
             <div class="w-cta-btns">
               <a href="tel:0412345678" class="btn-call">&#128222; Call Now</a>
-              <a href="mailto:info@jarrahfencing.com.au" class="btn-enquire">Email Us</a>
+              <a href="/cdn-cgi/l/email-protection#a4cdcac2cbe4cec5d6d6c5ccc2c1cac7cdcac38ac7cbc98ac5d1" class="btn-enquire">Email Us</a>
             </div>
           </div>
         </div>
@@ -435,7 +438,7 @@
   <div class="gallery-dots" id="gallery-dots"></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 
   // ── CONFIG ──
@@ -802,11 +805,4 @@
     var el=document.getElementById('total-length-display');if(el)el.textContent=total+'m';
     updateLiveTicker();
   }
-  window.addRun=function(){runs.push(10);renderRuns()};
-  window.removeRun=function(i){runs.splice(i,1);renderRuns()};
-  renderRuns();
-
-})();
-</script>
-</body>
-</html>
+  window.add
